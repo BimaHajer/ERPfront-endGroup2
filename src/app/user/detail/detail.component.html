@@ -1,0 +1,83 @@
+<span>
+  <span><a routerLink="/users">Utilisateur</a></span> /
+  <span>Details</span>
+</span>
+<br>
+<section>
+  <h3>Détails d'utilisateur</h3>
+  <div class="spinner-class" *ngIf="!userId">
+    <clr-spinner [clrMedium]="true"></clr-spinner>
+  </div>
+  <form clrForm *ngIf="userId">
+    <clr-input-container>
+      <label>Id </label>
+      <input clrInput type="text" value="{{user.id}}" readonly *ngIf="user.id" />
+      <label *ngIf="!user.id"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Nom </label>
+      <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="user.firstName" name="firstName"
+        *ngIf="user.firstName" />
+      <label *ngIf="!user.firstName"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Prénom </label>
+      <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="user.lastName" name="lastName"
+        *ngIf="user.lastName" />
+      <label *ngIf="!user.lastName"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Email </label>
+      <input class="input-full-text" clrInput type="text" readonly name="email" [ngModel]="user.email"
+        *ngIf="user.email" />
+      <label *ngIf="!user.email"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Téléphone</label>
+      <input clrInput type="text" readonly name="phone" [ngModel]="user.phone" *ngIf="user.phone" />
+      <label *ngIf="!user.phone"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Adresse</label>
+      <input class="input-full-text" type="text" clrInput readonly [ngModel]="user.address" name="address"
+        *ngIf="user.address" />
+      <label *ngIf="!user.address"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Code Postal</label>
+      <input type="number" class="input-full-text" clrInput readonly [ngModel]="user.zipCode" name="zipCode"
+        *ngIf="user.zipCode" />
+      <label *ngIf="!user.zipCode"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Actif / Non actif</label>
+      <label *ngIf="user.active==true"><span class="label label-success">Actif</span></label>
+      <label *ngIf="user.active==false"><span class="label label-warning">Non actif</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Créé(e) le</label>
+      <input clrInput *ngIf="user.createdAt" value="{{ user.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+      <label *ngIf="!user.createdAt "><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Mis(e) à jour le</label>
+      <input clrInput *ngIf="user.updatedAt" value="{{ user.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+      <label *ngIf="!user.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <br>
+
+    <div class="btn-group btn-sm btn-outline-primary ">
+      <button class="btn" (mousedown)="redirectTo()">
+        <cds-icon shape="undo"></cds-icon> Retour
+      </button>
+      <button class="btn" routerLink="/users/edit/{{user.id}}" *ngIf="user.id!=currentUser">
+        <cds-icon shape="pencil"></cds-icon> Modifier Utilisateur
+      </button>
+      <button class="btn" (click)="deleteAction()" *ngIf="user.id!=currentUser">
+        <cds-icon shape="trash"></cds-icon> Supprimer
+      </button>
+    </div>
+  </form>
+
+</section>
+<app-delete *ngIf="showAlert && user.id" (closed)="close()" (saved)="save()" [allSelected]="[user.id]"></app-delete>

@@ -1,0 +1,12 @@
+<clr-main-container class="main-container">
+  <app-header *ngIf="showMenu"></app-header>
+  <div class="content-container">
+    <div class="content-area"  [ngClass]="{'espace': showMenu === true}">
+      <router-outlet></router-outlet>
+    </div>
+    <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="clrVerticalNavCollapsed"
+      *ngIf="showMenu">
+      <app-side-nav *ngIf="showMenu"></app-side-nav>
+    </clr-vertical-nav>
+  </div>
+</clr-main-container>

@@ -1,0 +1,15 @@
+.color-blue {
+  color: #0072a3
+}
+
+.space-button {
+  margin-right: 55.6rem
+}
+
+:host ::ng-deep .btn-outline {
+  margin-right: 0.5rem !important;
+}
+
+.posHeader {
+  transform: translateX(100px) translateY(-10px);
+}

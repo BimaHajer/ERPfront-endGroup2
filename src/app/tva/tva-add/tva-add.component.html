@@ -1,0 +1,32 @@
+<span #top class="scroll-margin-top">
+    <span><a routerLink="/tva">Tva</a></span> /
+    <span>Ajout</span>
+  </span>
+  <section>
+    <!-- <app-alert [success]="success" [echec]="echec" [msgSuccess]="msgAlert" [msgEchec]="erreurMsg"
+      (closed)="close()"></app-alert> -->
+  
+    <h3>Ajouter Tva</h3>
+    <form clrForm [formGroup]="registerForm">
+      <clr-input-container>
+        <label>Valeur *</label>
+        <input clrInput type="text" formControlName="value" />
+        <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+      </clr-input-container>
+    </form>
+    <label class="alert-sm">* Champ obligatoire</label>
+    <br><br>
+    <div class="btn-group btn-outline-primary">
+      <button class="btn btn-sm" (mousedown)="redirectTo()">
+        <cds-icon shape="undo"></cds-icon> Retour
+      </button>
+      <button class="btn btn-sm" (click)="submitAction(top)" [disabled]="registerForm.invalid"
+        [clrLoading]="validateBtnState">
+        <cds-icon shape="plus"></cds-icon> Enregistrer
+      </button>
+    </div>
+  </section>
+  
+  
+
+

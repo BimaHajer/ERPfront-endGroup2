@@ -1,0 +1,16 @@
+<div *ngFor="let item of NavBars">
+  <a clrVerticalNavLink [routerLink]="item.route" routerLinkActive="active" class="a-style-text nav-link-background-color"
+      *ngIf="item?.subsNavbar?.length==0">
+      <cds-icon [attr.shape]="item.icon" clrVerticalNavIcon></cds-icon>
+      {{item.name}}
+  </a>
+  <clr-vertical-nav-group *ngIf="item?.subsNavbar?.length">
+      <cds-icon [attr.shape]="item.icon" clrVerticalNavIcon></cds-icon>
+      {{item.name}}
+      <clr-vertical-nav-group-children *ngFor="let subNavbar of item.subsNavbar">
+          <a clrVerticalNavLink [routerLink]="subNavbar.route" routerLinkActive="active" class="nav-link-background-color">
+              {{subNavbar.name}}
+          </a>
+      </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+</div>

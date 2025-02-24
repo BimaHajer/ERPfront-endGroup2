@@ -1,0 +1,63 @@
+<span>
+    <span><a routerLink="/categories">Catégories</a></span> /
+    <span>Details</span>
+  </span>
+  <br>
+  <section>
+    <h3>Détails de catégotie</h3>
+    <div class="spinner-class" *ngIf="!categoryId">
+      <clr-spinner [clrMedium]="true"></clr-spinner>
+    </div>
+    <form clrForm *ngIf="categoryId">
+      <clr-input-container>
+        <label>Id </label>
+        <input clrInput type="text" value="{{Category.id}}" readonly *ngIf="Category.id" />
+        <label *ngIf="!Category.id"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Nom </label>
+        <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Category.name" name="name"
+          *ngIf="Category.name" />
+        <label *ngIf="!Category.name"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Description </label>
+        <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Category.description" name="description"
+          *ngIf="Category.description" />
+        <label *ngIf="!Category.description"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Actif / Non actif</label>
+        <label *ngIf="Category.active==true"><span class="label label-success">Actif</span></label>
+        <label *ngIf="Category.active==false"><span class="label label-warning">Non actif</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Créé(e) le</label>
+        <input clrInput *ngIf="Category.createdAt" value="{{ Category.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!Category.createdAt "><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Mis(e) à jour le</label>
+        <input clrInput *ngIf="Category.updatedAt" value="{{ Category.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!Category.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <br>
+  
+      <div class="btn-group btn-sm btn-outline-primary ">
+        <button class="btn" (mousedown)="redirectTo()">
+          <cds-icon shape="undo"></cds-icon> Retour
+        </button>
+        <button class="btn" routerLink="/categories/edit/{{Category.id}}" *ngIf="Category.id!=currentCategory">
+          <cds-icon shape="pencil"></cds-icon> Modifier catégorie
+        </button>
+        <button class="btn" (click)="deleteAction()" *ngIf="Category.id!=currentCategory">
+          <cds-icon shape="trash"></cds-icon> Supprimer
+        </button>
+      </div>
+    </form>
+  
+  </section>
+  <app-category-delete *ngIf="showAlert && Category.id" (closed)="close()" (saved)="save()" [allSelected]="[Category.id]"></app-category-delete>
+ 
+    
+

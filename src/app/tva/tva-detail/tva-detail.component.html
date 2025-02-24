@@ -1,0 +1,53 @@
+<span>
+    <span><a routerLink="/tva">Tva</a></span> /
+    <span>Details</span>
+  </span>
+  <br>
+  <section>
+    <h3>Détails de Tva</h3>
+    <div class="spinner-class" *ngIf="!tvaId">
+      <clr-spinner [clrMedium]="true"></clr-spinner>
+    </div>
+    <form clrForm *ngIf="tvaId">
+      <clr-input-container>
+        <label>Id </label>
+        <input clrInput type="text" value="{{Tva.id}}" readonly *ngIf="Tva.id" />
+        <label *ngIf="!Tva.id"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Valeur </label>
+        <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Tva.value" name="value"
+          *ngIf="Tva.value" />
+        <label *ngIf="!Tva.value"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Créé(e) le</label>
+        <input clrInput *ngIf="Tva.createdAt" value="{{ Tva.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!Tva.createdAt "><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Mis(e) à jour le</label>
+        <input clrInput *ngIf="Tva.updatedAt" value="{{ Tva.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!Tva.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <br>
+  
+      <div class="btn-group btn-sm btn-outline-primary ">
+        <button class="btn" (mousedown)="redirectTo()">
+          <cds-icon shape="undo"></cds-icon> Retour
+        </button>
+        <button class="btn" routerLink="/tva/edit/{{Tva.id}}" *ngIf="Tva.id!=currentTva">
+          <cds-icon shape="pencil"></cds-icon> Modifier Tva
+        </button>
+        <button class="btn" (click)="deleteAction()" *ngIf="Tva.id!=currentTva">
+          <cds-icon shape="trash"></cds-icon> Supprimer
+        </button>
+      </div>
+    </form>
+  
+  </section>
+  <app-tva-delete *ngIf="showAlert && Tva.id" (closed)="close()" (saved)="save()" [allSelected]="[Tva.id]"></app-tva-delete>
+ 
+    
+
+

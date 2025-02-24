@@ -1,0 +1,24 @@
+<clr-header class="header-6">
+  <div class="branding">
+    <a routerLink="dashboard" class="nav-link">
+      <img type="image/icon" class="icon img-ioc" src="/assets/images/logo.png" />
+      <span class="title">Curio ERP</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <clr-dropdown [clrCloseMenuOnItemClick]="false" class="DropDown">
+      <button clrDropdownTrigger aria-label="Dropdown button" class="btn-profil">
+        <span class="profile-class">{{firstName}} {{lastName}}</span>
+        <cds-icon shape="angle" direction="down"></cds-icon>
+      </button>
+      <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+        <div class="dropdown-divider" role="separator" aria-hidden="true">
+        </div>
+        <div clrDropdownItem (click)="logout()">
+          <cds-icon shape="logout" class="icons"></cds-icon>
+          Déconnecter
+        </div>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
+</clr-header>

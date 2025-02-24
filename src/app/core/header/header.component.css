@@ -1,0 +1,42 @@
+.title {
+  line-height: 1rem !important
+}
+
+.DropDown {
+  margin-right: 15px;
+}
+
+:host ::ng-deep .DropDown .icons {
+  color: black;
+}
+
+:host ::ng-deep .header .header-actions .dropdown .dropdown-toggle {
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  ::ng-deep .open-hamburger-menu .header .branding {
+      display: inline-block;
+  }
+
+  ::ng-deep .header-hamburger-trigger .branding {
+      display: none;
+  }
+
+  .profile-class {
+      display: none;
+  }
+}
+
+:host ::ng-deep .header-hamburger-trigger {
+  padding-left: 2.5vw;
+}
+
+:host ::ng-deep .nav-text {
+  color: white;
+}
+
+.btn-profil:focus {
+  outline: none;
+}
+

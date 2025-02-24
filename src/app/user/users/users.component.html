@@ -1,0 +1,86 @@
+<section class="title">
+  <h3 class="welcome">Utilisateurs</h3>
+
+  <clr-datagrid [clrDgLoading]="loading" (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="allSelected"
+      (clrDgSelectedChange)="selectionChanged()" [clrDgRowSelection]="false">
+      <clr-dg-action-bar>
+          <div class="btn-group">
+              <button class="btn btn-sm" routerLink="/users/add/">
+                  <cds-icon shape="plus"></cds-icon> Ajouter Utilisateur
+              </button>
+              <button class="btn btn-sm" (click)="editAction()"
+                  [disabled]="allSelected.length != 1">
+                  <cds-icon shape="pencil"></cds-icon> Modifier
+              </button>
+              <button class="btn btn-sm" (click)="deleteMultipleAction()"
+                  [disabled]="allSelected.length == 0">
+                  <cds-icon shape="trash"></cds-icon> Supprimer
+              </button>
+          </div>
+      </clr-dg-action-bar>
+      <clr-dg-column [clrDgSortBy]="'id'" [clrDgSortOrder]="descSort">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Id
+          </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'firstName'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Nom
+          </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'lastName'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Prénom
+          </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'email'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Email
+          </ng-container>
+      </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'phone'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            Téléphone
+        </ng-container>
+    </clr-dg-column>
+      <clr-dg-column [clrDgSortBy]="'active'">
+          <ng-container *clrDgHideableColumn="{hidden: false}">
+              Actif / Non actif
+          </ng-container>
+      </clr-dg-column>
+      <clr-dg-placeholder> Nous n'avons trouvé aucun utilisateur! </clr-dg-placeholder>
+      <clr-dg-row *ngFor="let item of users" [clrDgItem]="item" class="cursor-pointer"
+          [clrDgSelected]="existInSelected(item)">
+          <clr-dg-cell routerLink="/users/detail/{{item.id}}">{{item.id}}
+          </clr-dg-cell>
+          <clr-dg-cell routerLink="/users/detail/{{item.id}}">
+              <span *ngIf="item.firstName">{{item.firstName}}</span>
+              <cds-icon shape="ban" *ngIf="!item.firstName"></cds-icon>
+          </clr-dg-cell>
+          <clr-dg-cell routerLink="/users/detail/{{item.id}}">
+              <span *ngIf="item.lastName">{{item.lastName}}</span>
+              <cds-icon shape="ban" *ngIf="!item.lastName"></cds-icon>
+          </clr-dg-cell>
+          <clr-dg-cell routerLink="/users/detail/{{item.id}}">
+              <span *ngIf="item.email">{{item.email}}</span>
+              <cds-icon shape="ban" *ngIf="!item.email"></cds-icon>
+          </clr-dg-cell>
+          <clr-dg-cell routerLink="/users/detail/{{item.id}}">
+            <span *ngIf="item.phone">{{item.phone}}</span>
+            <cds-icon shape="ban" *ngIf="!item.phone"></cds-icon>
+        </clr-dg-cell>
+          <clr-dg-cell routerLink="/users/detail/{{item.id}}">
+              <span *ngIf="item.active==true" class="label label-success">Actif</span>
+              <span *ngIf="item.active==false" class="label label-warning">Non actif</span>
+          </clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-footer>
+          <clr-dg-pagination #pagination [clrDgTotalItems]="count" [clrDgPageSize]="pageSize">
+              <clr-dg-page-size [clrPageSizeOptions]="pageSizeOptions">Utilisateurs par page</clr-dg-page-size>
+              {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+              de {{count}}
+          </clr-dg-pagination>
+      </clr-dg-footer>
+  </clr-datagrid>
+</section>
+<app-delete *ngIf="showAlert" (closed)="close()" (saved)="save()" [allSelected]="idsSelected"></app-delete>

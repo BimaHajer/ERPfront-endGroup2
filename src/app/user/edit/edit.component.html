@@ -1,0 +1,63 @@
+<span #top class="scroll-margin-top">
+  <span><a routerLink="/users">Utilisateur</a></span> /
+  <span>Modification</span>
+</span>
+<section>
+  <!-- <app-alert [success]="success" [echec]="tailleInvalid || echecEdit || formatInvalid || noImage" [msgSuccess]="msgAlert"
+  [msgEchec]="erreurMsg" (closed)="actionClose()"></app-alert> -->
+
+  <h3>Modifier Utilisateur</h3>
+  <div class="spinner-class" *ngIf="!userId">
+    <clr-spinner [clrMedium]="true"></clr-spinner>
+  </div>
+  <form clrForm [formGroup]="registerForm" (ngSubmit)="submitAction(top)" *ngIf="userId">
+    <clr-input-container>
+      <label>Nom *</label>
+      <input clrInput type="text" formControlName="firstName" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Prénom *</label>
+      <input clrInput type="text" formControlName="lastName" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Email *</label>
+      <input clrInput type="text" class="form-control" formControlName="email"
+        email />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+      <clr-control-error>Adresse mail non valide</clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Téléphone*</label>
+      <input clrInput type="text" formControlName="phone" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Adresse</label>
+      <input type="text" clrInput formControlName="address"/>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Code Postal</label>
+      <input type="text" clrInput formControlName="zipCode" />
+      <clr-control-error *clrIfError="'maxlength'">Taper 5 caractères au maximum </clr-control-error>
+    </clr-input-container>
+    <clr-checkbox-container>
+      <label>Actif / Non actif</label>
+      <clr-checkbox-wrapper>
+          <input type="checkbox" clrCheckbox formControlName="active" />
+      </clr-checkbox-wrapper>
+    </clr-checkbox-container><br><br>
+    <label class="alert-sm">* Champ obligatoire</label>
+    <br><br>
+    <div class="btn-group btn-sm btn-outline-primary">
+      <button type="reset" class="btn" (mousedown)="redirectTo()">
+        <cds-icon shape="undo"></cds-icon> Retour
+      </button>
+      <button type="submit" class="btn" [disabled]="registerForm.invalid"
+        [clrLoading]="validateBtnState">
+        <cds-icon shape="plus"></cds-icon> Enregistrer
+      </button>
+    </div>
+  </form>
+</section>

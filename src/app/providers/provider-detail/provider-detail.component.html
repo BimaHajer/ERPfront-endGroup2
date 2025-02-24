@@ -1,0 +1,84 @@
+<span>
+  <span><a routerLink="/providers">Fournisseur</a></span> /
+  <span>Details</span>
+</span>
+<br>
+<section>
+  <h3>Détails de Fournisseur</h3>
+  <div class="spinner-class" *ngIf="!providerId">
+    <clr-spinner [clrMedium]="true"></clr-spinner>
+  </div>
+  <form clrForm *ngIf="providerId">
+    <clr-input-container>
+      <label>Id </label>
+      <input clrInput type="text" value="{{provider.id}}" readonly *ngIf="provider.id" />
+      <label *ngIf="!provider.id"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Nom </label>
+      <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="provider.firstName" name="firstName"
+        *ngIf="provider.firstName" />
+      <label *ngIf="!provider.firstName"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Prénom </label>
+      <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="provider.lastName" name="lastName"
+        *ngIf="provider.lastName" />
+      <label *ngIf="!provider.lastName"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Email </label>
+      <input class="input-full-text" clrInput type="text" readonly name="email" [ngModel]="provider.email"
+        *ngIf="provider.email" />
+      <label *ngIf="!provider.email"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Téléphone</label>
+      <input clrInput type="text" readonly name="phone" [ngModel]="provider.phone" *ngIf="provider.phone" />
+      <label *ngIf="!provider.phone"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Adresse</label>
+      <input class="input-full-text" type="text" clrInput readonly [ngModel]="provider.address" name="address"
+        *ngIf="provider.address" />
+      <label *ngIf="!provider.address"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Code Postal</label>
+      <input type="number" class="input-full-text" clrInput readonly [ngModel]="provider.zipCode" name="zipCode"
+        *ngIf="provider.zipCode" />
+      <label *ngIf="!provider.zipCode"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Actif / Non actif</label>
+      <label *ngIf="provider.active==true"><span class="label label-success">Actif</span></label>
+      <label *ngIf="provider.active==false"><span class="label label-warning">Non actif</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Créé(e) le</label>
+      <input clrInput *ngIf="provider.createdAt" value="{{ provider.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+      <label *ngIf="!provider.createdAt "><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Mis(e) à jour le</label>
+      <input clrInput *ngIf="provider.updatedAt" value="{{ provider.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+      <label *ngIf="!provider.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <br>
+
+    <div class="btn-group btn-sm btn-outline-primary ">
+      <button class="btn" (mousedown)="redirectTo()">
+        <cds-icon shape="undo"></cds-icon> Retour
+      </button>
+      <button class="btn" routerLink="/providers/edit/{{provider.id}}" *ngIf="provider.id!=currentProvider">
+        <cds-icon shape="pencil"></cds-icon> Modifier provider
+      </button>
+      <button class="btn" (click)="deleteAction()" *ngIf="provider.id!=currentProvider">
+        <cds-icon shape="trash"></cds-icon> Supprimer
+      </button>
+    </div>
+  </form>
+
+</section>
+<app-provider-delete *ngIf="showAlert && provider.id" (closed)="close()" (saved)="save()" [allSelected]="[provider.id]"></app-provider-delete>
+

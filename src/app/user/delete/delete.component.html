@@ -1,0 +1,52 @@
+<div class="modal">
+  <div class="modal-dialog" role="dialog" aria-hidden="true">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button aria-label="Close" class="close" type="button" (click)="close()">
+                  <cds-icon aria-hidden="true" shape="close"></cds-icon>
+              </button>
+              <h3 class="modal-title">Supprimer et/ou désactiver de(s) utilisateur(s)</h3>
+              <clr-spinner *ngIf="!allSelected ||
+                  (allSelected?.length!=0 && toDelete.length==0 && toDisable.length==0)" [clrSmall]="true">
+              </clr-spinner>
+          </div>
+          <div *ngIf="allSelected?.length!=0 && (toDelete.length!=0 || toDisable.length!=0)">
+              <div class="modal-body">
+                  <div class="alert alert-danger" role="alert" *ngIf="alertError">
+                      <div class="alert-items">
+                          <div class="alert-item static">
+                              <div class="alert-icon-wrapper">
+                                  <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+                              </div>
+                              <span class="alert-text">Échec de la suppression et/ou désactivation</span>
+                          </div>
+                      </div>
+                  </div>
+                  <clr-alert [clrAlertType]="'danger'" [clrAlertClosable]="false" *ngIf="!alertError && toDelete.length!=0">
+                      <clr-alert-item>
+                          <span class="alert-text">
+                              {{msgAlertDelete}}
+                          </span>
+                      </clr-alert-item>
+                  </clr-alert>
+                  <clr-alert [clrAlertType]="'danger'" [clrAlertClosable]="false" *ngIf="!alertError && toDisable.length!=0">
+                      <clr-alert-item>
+                          <span class="alert-text">
+                              {{msgAlertDisable}}
+                          </span>
+                      </clr-alert-item>
+                  </clr-alert>
+                  <div class="modal-footer">
+                      <button class="btn btn-outline" type="button" (click)="close()">Annuler</button>
+                      <button class="btn btn-primary" type="button" (click)="deleteUser()" [clrLoading]="validateBtnState">
+                          <span *ngIf="toDelete.length!=0 && toDisable.length!=0">Confirmer</span>
+                          <span *ngIf="toDelete.length!=0 && toDisable.length==0">Supprimer</span>
+                          <span *ngIf="toDelete.length==0 && toDisable.length!=0">Désactiver</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true"></div>
