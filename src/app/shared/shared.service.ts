@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import { FilterDto } from '../filter.dto';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   getCookie(cname: string) {
     var name = cname + "=";
@@ -20,6 +23,9 @@ export class SharedService {
       }
     }
     return "";
+  }
+  uploadImgCloudinary(imageData: any) {
+    return this.http.post(environment.api + '/uploadImgCloudinary/' ,imageData);
   }
 }
 export function tokenGetter() {
@@ -39,3 +45,32 @@ export function tokenGetter() {
 export const pageSize = 10
 
 export const pageSizeOptions = [5, pageSize, 15, 20,30,40,50]
+
+export function handleStateFilter(state:any){
+  let filter: any = {}
+  const page = state.page?.current || 1
+  filter.take = state.page?.size || pageSize
+  filter.skip =  (page - 1) * (filter.take)
+  // order
+  if (state.sort != null) {
+    let orderType: any;
+    if (state.sort.reverse == false) {
+      orderType = 'ASC';
+    } else {
+      orderType = 'DESC';
+    }
+    let key: any = state.sort.by
+    filter.order = { [key]: orderType }
+    return filter
+  }
+}
+
+export class Alert {
+  constructor(
+    public success?: boolean,
+    public echec?: boolean,
+    public msgSuccess?: string,
+    public msgEchec?: string,
+    public open?: boolean
+  ) { }
+}

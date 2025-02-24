@@ -8,12 +8,11 @@
   <div class="header-actions">
     <clr-dropdown [clrCloseMenuOnItemClick]="false" class="DropDown">
       <button clrDropdownTrigger aria-label="Dropdown button" class="btn-profil">
-        <span class="profile-class">{{firstName}} {{lastName}}</span>
+        <img type="image/icon" class="icon rounded icon-class" [src]="user?.picture" />
+        <span class="profile-class">{{user?.firstName}} {{user?.lastName}}</span>
         <cds-icon shape="angle" direction="down"></cds-icon>
       </button>
       <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
-        <div class="dropdown-divider" role="separator" aria-hidden="true">
-        </div>
         <div clrDropdownItem (click)="logout()">
           <cds-icon shape="logout" class="icons"></cds-icon>
           Déconnecter

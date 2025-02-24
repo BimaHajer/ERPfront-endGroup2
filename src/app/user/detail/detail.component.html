@@ -64,6 +64,22 @@
       <input clrInput *ngIf="user.updatedAt" value="{{ user.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
       <label *ngIf="!user.updatedAt"><span class="label label-warning">Non disponible!</span></label>
     </clr-input-container>
+    <clr-input-container>
+      <label>Image </label>
+      <label *ngIf="!user.picture"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <div class="clr-row clr-align-items-center">
+      <div class="clr-col-7 clr-col-md-4  clr-offset-sm-2 ">
+        <div class="picture-user" *ngIf="user.picture">
+          <div class="card">
+            <div class="card-img container">
+              <img [src]="user.picture">
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
     <br>
 
     <div class="btn-group btn-sm btn-outline-primary ">

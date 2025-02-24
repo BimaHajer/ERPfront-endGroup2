@@ -1,0 +1,17 @@
+
+
+<app-alert [echec]="formatInvalid" [msgEchec]="erreurMsg" (closed)="formatInvalid=false"></app-alert>
+<div class="card-img card" *ngIf="srcUrl">
+    <div class="clr-row clr-justify-content-end">
+        <a class="cursor-pointer" (click)="deletePicAction()">
+            <cds-icon shape="times"></cds-icon>
+        </a>
+    </div>
+    <img [src]="srcUrl"/>
+</div>
+<div class="card-img" *ngIf="!srcUrl">
+    <a (click)="fileInput.click()" class="card">
+        <cds-icon class="plus-icon" shape="plus-circle"></cds-icon>
+    </a>
+    <input hidden type="file" #fileInput (change)="picked($event)" >
+</div>

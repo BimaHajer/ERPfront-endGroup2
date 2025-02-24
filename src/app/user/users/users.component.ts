@@ -3,7 +3,7 @@ import { User } from '../user';
 import { ClrDatagridSortOrder, ClrDatagridStateInterface } from '@clr/angular';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { pageSize, pageSizeOptions, SharedService } from '../../shared/shared.service';
+import { handleStateFilter, pageSize, pageSizeOptions, SharedService } from '../../shared/shared.service';
 import { FilterDto } from '../../filter.dto';
 
 @Component({
@@ -35,9 +35,7 @@ export class UsersComponent {
   refresh(state: ClrDatagridStateInterface) {
     this.loading = true
     this.state = state
-    const page = this.state.page?.current || 1
-    this.filter.take = this.state.page?.size || pageSize
-    this.filter.skip =  (page - 1) * (this.filter.take)
+    this.filter = Object.assign(this.filter,handleStateFilter(this.state))
     this.getUsers()
   }
 
@@ -56,6 +54,7 @@ export class UsersComponent {
 
   close() {
     this.showAlert = false;
+    this.allSelected = []
   }
 
   save() {

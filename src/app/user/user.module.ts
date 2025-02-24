@@ -10,6 +10,7 @@ import { EditComponent } from './edit/edit.component';
 import { DetailComponent } from './detail/detail.component';
 import { UsersComponent } from './users/users.component';
 import { DeleteComponent } from './delete/delete.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { DeleteComponent } from './delete/delete.component';
     ClarityModule,
     CdsModule,
     ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class UserModule { }

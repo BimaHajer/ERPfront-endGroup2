@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { SharedService } from './../../shared/shared.service';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 import { User } from '../user';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../user.service';
+import { Alert } from '../../shared/shared.service';
+import { UploadImageComponent } from '../../shared/upload-image/upload-image.component';
 
 @Component({
   selector: 'app-edit',
@@ -11,21 +14,22 @@ import { UserService } from '../user.service';
   styleUrl: './edit.component.css'
 })
 export class EditComponent {
+  @ViewChild(UploadImageComponent) uploadImageComponent!: UploadImageComponent;
   userId!: number
   user: User = new User()
-  success: boolean = false
-  erreurMsg: string = ''
   registerForm: FormGroup
   validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT
-  msgAlert: string = ''
+  loading: boolean = false
+  loadingImg: boolean = false
+  alert: Alert = new Alert()
 
-  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private userService: UserService, private sharedService:SharedService) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      picture: [],
+      picture: [, [Validators.required]],
       address: [],
       zipCode: [, Validators.maxLength(5)],
       active: [],
@@ -50,8 +54,37 @@ export class EditComponent {
     )
   }
 
-  actionClose() {
-    this.success = false
+  closeImg() {
+    this.registerForm.patchValue({ picture: null })
+    this.loadingImg = false
+    this.alert.open = false
+  }
+
+  uploadImg(pathUrl: any) {
+    this.loadingImg = true
+    this.alert.open = false
+    let imageData = {
+      path: pathUrl,
+      folder: 'user',
+      customName: this.user.firstName ? this.user.firstName + '-' + this.user.id : 'user-' + this.user.id
+    }
+
+    this.sharedService.uploadImgCloudinary(imageData).subscribe(
+      (data: any) => {
+        this.user.picture = data.path
+        this.registerForm.patchValue({ picture: data.path })
+        this.alert = { success: true, msgSuccess: "Le téléchargement de l'image a été effectué avec succès ..", echec: false, open: true }
+        this.loadingImg = false
+      },
+      (err:any) => {
+        console.error('Observer got an error: ' + err)
+        this.registerForm.patchValue({ picture: null })
+        this.uploadImageComponent.srcUrl = ''
+        this.alert = { success: false, msgEchec: "Le téléchargement de l'image a été échoué ..", echec: true, open: true }
+        this.loadingImg = false
+      },
+      () => this.loadingImg = false
+    )
   }
 
  submitAction(top: HTMLElement) {
@@ -61,18 +94,16 @@ export class EditComponent {
         this.userService.editUser(this.userId, this.registerForm.value).subscribe(
           data => {
             this.user = data
-            this.success = true
             this.validateBtnState = ClrLoadingState.SUCCESS
-            this.msgAlert = "La modification d'utilisateur " + this.user.id + " a été effectuée avec succès !"
+            this.alert = { success: true, msgSuccess: "La modification d'utilisateur " + this.user.id + " a été effectuée avec succès !", echec: false, open: true }
           },
           err => {
             console.error('Observer got an error: ' + err)
             if (/e-mail existe déjà/.test(err.error.message)) {
-              this.erreurMsg = err.error.message
+              this.alert = { success: false, msgEchec: err.error.message, echec: true, open: true }
             } else {
-              this.erreurMsg = " La modification de l'utilisateur a été échouée .. "
+              this.alert = { success: false, msgEchec: "La modification de l'utilisateur a été échouée ..", echec: true, open: true }
             }
-            this.success = false
             this.validateBtnState = ClrLoadingState.ERROR
           },
         )

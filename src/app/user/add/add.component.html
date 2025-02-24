@@ -3,8 +3,7 @@
   <span>Ajout</span>
 </span>
 <section>
-  <!-- <app-alert [success]="success" [echec]="echec" [msgSuccess]="msgAlert" [msgEchec]="erreurMsg"
-    (closed)="close()"></app-alert> -->
+  <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
 
   <h3>Ajouter Utilisateur</h3>
   <form clrForm [formGroup]="registerForm">
@@ -56,6 +55,12 @@
       <input type="text" clrInput formControlName="zipCode" />
       <clr-control-error *clrIfError="'maxlength'">Taper 5 caractères au maximum </clr-control-error>
     </clr-input-container>
+    <clr-input-container>
+      <label>Image *</label>
+    </clr-input-container>
+    <div class="pos-upload-img">
+      <app-upload-image (pathUrl)="uploadImg($event)" (deletePicture)="closeImg()"></app-upload-image>
+    </div>
     <br>
     <clr-checkbox-container>
       <label>Actif / Non actif</label>
@@ -70,7 +75,7 @@
     <button class="btn btn-sm" (mousedown)="redirectTo()">
       <cds-icon shape="undo"></cds-icon> Retour
     </button>
-    <button class="btn btn-sm" (click)="submitAction(top)" [disabled]="registerForm.invalid"
+    <button class="btn btn-sm" (click)="submitAction(top)" [disabled]="registerForm.invalid ||loadingImg == true"
       [clrLoading]="validateBtnState">
       <cds-icon shape="plus"></cds-icon> Enregistrer
     </button>

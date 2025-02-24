@@ -1,0 +1,30 @@
+<div *ngIf="success" class="alert alert-success" role="alert">
+  <div class="alert-items">
+      <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+              <cds-icon class="alert-icon" shape="check-circle"></cds-icon>
+          </div>
+          <span class="alert-text">
+              {{msgSuccess}}
+          </span>
+      </div>
+  </div>
+  <button type="button" class="close" aria-label="Close" (click)="actionClose()">
+      <cds-icon aria-hidden="true" shape="close"></cds-icon>
+  </button>
+</div>
+<div *ngIf="echec" class="alert alert-danger" role="alert">
+  <div class="alert-items">
+      <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+              <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+          </div>
+          <span class="alert-text">
+              {{msgEchec}}
+          </span>
+      </div>
+  </div>
+  <button type="button" class="close" aria-label="Close" (click)="actionClose()">
+      <cds-icon aria-hidden="true" shape="close"></cds-icon>
+  </button>
+</div>

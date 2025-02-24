@@ -1,0 +1,30 @@
+.scroll-margin-top {
+  scroll-margin-top: 1.8rem;
+}
+
+.plus-icon {
+width: 100% !important;
+height: 200px !important;
+padding: 30%;
+color: #1c8adb;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.card-img {
+  max-width: 200px;
+}
+
+.card {
+  margin: 0;
+}
+
+.delete-icon {
+  border: none;
+}
+
+a {
+  color: var(--clr-btn-default-color, #0072a3);
+  margin-right: 18px;
+}
