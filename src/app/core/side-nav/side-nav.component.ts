@@ -17,9 +17,30 @@ export class SideNavComponent {
     {
         "name": "Utilisateurs",
         "route": "users",
-        "icon": "user",
+        "icon": "users",
         "order": 2,
         "subsNavbar": []
+    },
+    {
+      "name": "Fournisseurs",
+      "route": "providers",
+      "icon": "user",
+      "order": 3,
+      "subsNavbar": []
+    },
+    {
+      "name": "Catégories",
+      "route": "categories",
+      "icon": "grid-view",
+      "order": 4,
+      "subsNavbar": []
+    },
+    {
+      "name": "Tva",
+      "route": "tva",
+      "icon": "factory",
+      "order": 5,
+      "subsNavbar": []
     }
 ]
 

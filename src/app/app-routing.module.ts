@@ -14,6 +14,18 @@ const routes: Routes = [
   {
     path: 'users',canActivate: [AuthGuard],
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+  },
+  {
+    path: 'providers',canActivate: [AuthGuard],
+    loadChildren: () => import('./providers/providers.module').then(m => m.ProvidersModule)
+  },
+  {
+    path: 'categories',canActivate: [AuthGuard],
+    loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)
+  },
+  {
+    path: 'tva',canActivate: [AuthGuard],
+    loadChildren: () => import('./tva/tva.module').then(m => m.TvaModule)
   }
 
 ];
