@@ -15,10 +15,15 @@
         <label *ngIf="!Tva.id"><span class="label label-warning">Non disponible!</span></label>
       </clr-input-container>
       <clr-input-container>
-        <label>Valeur </label>
+        <label>Valeur en Pourcentage (%) </label>
         <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Tva.value" name="value"
           *ngIf="Tva.value" />
         <label *ngIf="!Tva.value"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Actif / Non actif</label>
+        <label *ngIf="Tva.active==true"><span class="label label-success">Actif</span></label>
+        <label *ngIf="Tva.active==false"><span class="label label-warning">Non actif</span></label>
       </clr-input-container>
       <clr-input-container>
         <label>Créé(e) le</label>

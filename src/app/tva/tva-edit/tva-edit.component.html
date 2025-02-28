@@ -12,10 +12,16 @@
     </div>
     <form clrForm [formGroup]="registerForm" (ngSubmit)="submitAction(top)" *ngIf="tvaId">
       <clr-input-container>
-        <label>Valeur *</label>
+        <label>Valeur en Pourcentage (%) *</label>
         <input clrInput type="text" formControlName="value" />
         <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
       </clr-input-container>
+      <clr-checkbox-container>
+        <label>Actif / Non actif</label>
+        <clr-checkbox-wrapper>
+            <input type="checkbox" clrCheckbox formControlName="active" />
+        </clr-checkbox-wrapper>
+      </clr-checkbox-container>
       <br><br>
       <label class="alert-sm">* Champ obligatoire</label>
       <br><br>

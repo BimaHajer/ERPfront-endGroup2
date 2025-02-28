@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ClrDatagridSortOrder, ClrDatagridStateInterface } from '@clr/angular';
 import { Tva } from '../tva';
 import { FilterDto } from '../../filter.dto';
-import { pageSize, pageSizeOptions, SharedService } from '../../shared/shared.service';
+import { handleStateFilter, pageSize, pageSizeOptions, SharedService } from '../../shared/shared.service';
 import { TvaService } from '../tva.service';
 import { Router } from '@angular/router';
 
@@ -33,12 +33,10 @@ export class TvaListComponent {
   }
     
   refresh(state: ClrDatagridStateInterface) {
-    this.loading = true
-    this.state = state
-    const page = this.state.page?.current || 1
-    this.filter.take = this.state.page?.size || pageSize
-    this.filter.skip =  (page - 1) * (this.filter.take)
-    this.getTva()
+        this.loading = true
+        this.state = state
+        this.filter = Object.assign(this.filter,handleStateFilter(this.state))
+        this.getTva()
   }
     
   getTva() {
@@ -57,6 +55,7 @@ export class TvaListComponent {
     
   close() {
     this.showAlert = false;
+    this.allSelected = [];
   }
     
   save() {

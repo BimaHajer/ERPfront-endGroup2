@@ -21,7 +21,8 @@ export class TvaEditComponent {
   
     constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private TvaService: TvaService) {
       this.registerForm = this.formBuilder.group({
-        value: ['', [Validators.required]]
+        value: ['', [Validators.required]],
+        active: [],
         });
   
     }

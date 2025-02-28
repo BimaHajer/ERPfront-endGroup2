@@ -20,7 +20,8 @@ export class TvaAddComponent {
     ) {
     this.registerForm = this.formBuilder.group(
       {
-        value: ['', [Validators.required]]
+        value: ['', [Validators.required]],
+        active: [true],
       }
     );
   }

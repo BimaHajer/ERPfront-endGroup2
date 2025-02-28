@@ -25,7 +25,12 @@
         </clr-dg-column>
         <clr-dg-column [clrDgSortBy]="'value'">
             <ng-container *clrDgHideableColumn="{hidden: false}">
-                Valeur
+                Valeur en Pourcentage (%)
+            </ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgSortBy]="'active'">
+            <ng-container *clrDgHideableColumn="{hidden: false}">
+                Actif / Non actif
             </ng-container>
         </clr-dg-column>
         <clr-dg-placeholder> Nous n'avons trouvé aucun Tva! </clr-dg-placeholder>
@@ -34,8 +39,11 @@
             <clr-dg-cell routerLink="/tva/detail/{{item.id}}">{{item.id}}
             </clr-dg-cell>
             <clr-dg-cell routerLink="/tva/detail/{{item.id}}">
-                <span *ngIf="item.value">{{item.value}}</span>
-                <cds-icon shape="ban" *ngIf="!item.value"></cds-icon>
+                <span *ngIf="item.value">{{item.value}} %</span>
+            </clr-dg-cell>
+            <clr-dg-cell routerLink="/tva/detail/{{item.id}}">
+                <span *ngIf="item.active==true" class="label label-success">Actif</span>
+                <span *ngIf="item.active==false" class="label label-warning">Non actif</span>
             </clr-dg-cell>
         </clr-dg-row>
         <clr-dg-footer>
