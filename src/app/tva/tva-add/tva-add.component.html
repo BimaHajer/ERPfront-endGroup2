@@ -3,8 +3,7 @@
     <span>Ajout</span>
   </span>
   <section>
-    <!-- <app-alert [success]="success" [echec]="echec" [msgSuccess]="msgAlert" [msgEchec]="erreurMsg"
-      (closed)="close()"></app-alert> -->
+    <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
   
     <h3>Ajouter Tva</h3>
     <form clrForm [formGroup]="registerForm">

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { TvaService } from '../tva.service';
+import { Alert } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-tva-edit',
@@ -14,10 +15,9 @@ export class TvaEditComponent {
     tvaId!: number
     tva: Tva = new Tva()
     success: boolean = false
-    erreurMsg: string = ''
     registerForm: FormGroup
     validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT
-    msgAlert: string = ''
+    alert: Alert = new Alert()
   
     constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private TvaService: TvaService) {
       this.registerForm = this.formBuilder.group({
@@ -61,11 +61,11 @@ export class TvaEditComponent {
             this.tva = data;
             this.success = true;
             this.validateBtnState = ClrLoadingState.SUCCESS;
-            this.msgAlert = "La modification de Tva " + this.tva.id + " a été effectuée avec succès !";
+            this.alert = { success: true, msgSuccess: "La modification de Tva " + this.tva.id + " a été effectuée avec succès !", echec: false, open: true }
           },
           (err) => {
             console.error("Observer got an error: " + err);
-            this.erreurMsg = "La modification de la catégorie a échoué ..";
+            this.alert = { success: false, msgEchec: "La modification de catégorie a été échouée ..", echec: true, open: true }
             this.success = false;
             this.validateBtnState = ClrLoadingState.ERROR;
           }

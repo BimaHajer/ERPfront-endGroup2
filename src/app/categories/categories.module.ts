@@ -9,6 +9,7 @@ import { CategoryEditComponent } from './category-edit/category-edit.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
+import { SharedModule } from "../shared/shared.module";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ClarityModule } from '@clr/angular';
     CategoriesRoutingModule,
     FormsModule,
     ClarityModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    SharedModule
+]
 })
 export class CategoriesModule { }

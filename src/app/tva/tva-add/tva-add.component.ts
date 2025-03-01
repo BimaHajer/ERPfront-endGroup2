@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 import { TvaService } from '../tva.service';
+import { Alert } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-tva-add',
@@ -11,9 +12,8 @@ import { TvaService } from '../tva.service';
 export class TvaAddComponent {
     validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
     success: boolean = false;
-    erreurMsg: string = '';
-    msgAlert: string = '';
     registerForm: FormGroup;
+    alert: Alert = new Alert()
     constructor(
       private formBuilder: FormBuilder,
       private TvaService: TvaService,
@@ -41,21 +41,18 @@ export class TvaAddComponent {
         (data) => {
           this.validateBtnState = ClrLoadingState.SUCCESS;
           this.registerForm.reset({ active: true });
-  
-          this.msgAlert =
-            "L'ajout de Tva " + data.value + " a été effectué avec succès! ";
+          this.alert = { success: true, msgSuccess: "L'ajout de Tva " + data.id + " a été effectué avec succès! ", echec: false, open: true };
         },
         (err) => {
           console.error('Erreur lors de l\'ajout de Tva:', err);
   
           if (/Tva existe déjà/.test(err.error.message)) {
-            this.erreurMsg = err.error.message;
+            this.alert = { success: false, msgEchec: err.error.message, echec: true, open: true }
           } else {
-            this.erreurMsg = "L'ajout de Tva a échoué.";
+            this.alert = { success: false, msgEchec: "L'ajout de Tva a été échoué ..", echec: true, open: true }
           }
   
-          this.validateBtnState = ClrLoadingState.ERROR;
-          this.success = false;
+          this.validateBtnState = ClrLoadingState.ERROR
         }
       );
     }

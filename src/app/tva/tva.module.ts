@@ -9,6 +9,7 @@ import { TvaEditComponent } from './tva-edit/tva-edit.component';
 import { TvaListComponent } from './tva-list/tva-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
+import { SharedModule } from "../shared/shared.module";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ClarityModule } from '@clr/angular';
     TvaRoutingModule,
     FormsModule,
     ClarityModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    SharedModule
+]
 })
 export class TvaModule { }

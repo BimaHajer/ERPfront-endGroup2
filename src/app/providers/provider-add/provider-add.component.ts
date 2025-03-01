@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 import { ProvidersService } from '../providers.service';
+import { Alert } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-provider-add',
@@ -11,9 +12,8 @@ import { ProvidersService } from '../providers.service';
 export class ProviderAddComponent {
     validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
     success: boolean = false;
-    erreurMsg: string = '';
-    msgAlert: string = '';
     registerForm: FormGroup;
+    alert: Alert = new Alert()
     constructor(
       private formBuilder: FormBuilder,
       private providerService: ProvidersService,
@@ -46,18 +46,16 @@ export class ProviderAddComponent {
           (data) => {
             this.validateBtnState = ClrLoadingState.SUCCESS;
             this.registerForm.reset({ active: true });
-            this.msgAlert =
-              "L'ajout de provider " + data.id +' a été effectué avec succès! ';
+            this.alert = { success: true, msgSuccess: "L'ajout de fournisseur " + data.id + " a été effectué avec succès! ", echec: false, open: true };
           },
           (err) => {
             console.error('Observer got an error: ' + err);
             if (/e-mail existe déjà/.test(err.error.message)) {
-              this.erreurMsg = err.error.message;
+              this.alert = { success: false, msgEchec: err.error.message, echec: true, open: true }
             } else {
-              this.erreurMsg = "L'ajout d'un provider a été échoué ..";
+              this.alert = { success: false, msgEchec: "L'ajout d'un fournisseur a été échoué ..", echec: true, open: true }
             }
-            this.validateBtnState = ClrLoadingState.ERROR;
-            this.success = false;
+            this.validateBtnState = ClrLoadingState.ERROR
           }
         );
       }

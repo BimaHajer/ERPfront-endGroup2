@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CategoriesService } from '../categories.service';
+import { Alert } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-category-edit',
@@ -14,10 +15,9 @@ export class CategoryEditComponent {
     categoryId!: number
     Category: Category = new Category()
     success: boolean = false
-    erreurMsg: string = ''
     registerForm: FormGroup
     validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT
-    msgAlert: string = ''
+    alert: Alert = new Alert()
   
     constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private CategoriesService: CategoriesService) {
       this.registerForm = this.formBuilder.group({
@@ -62,11 +62,11 @@ export class CategoryEditComponent {
             this.Category = data;
             this.success = true;
             this.validateBtnState = ClrLoadingState.SUCCESS;
-            this.msgAlert = "La modification de la catégorie " + this.Category.id + " a été effectuée avec succès !";
+            this.alert = { success: true, msgSuccess: "La modification de catégorie " + this.Category.id + " a été effectuée avec succès !", echec: false, open: true }
           },
           (err) => {
             console.error("Observer got an error: " + err);
-            this.erreurMsg = "La modification de la catégorie a échoué ..";
+            this.alert = { success: false, msgEchec: "La modification de catégorie a été échouée ..", echec: true, open: true }
             this.success = false;
             this.validateBtnState = ClrLoadingState.ERROR;
           }

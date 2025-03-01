@@ -3,8 +3,7 @@
     <span>Modification</span>
   </span>
   <section>
-    <!-- <app-alert [success]="success" [echec]="tailleInvalid || echecEdit || formatInvalid || noImage" [msgSuccess]="msgAlert"
-    [msgEchec]="erreurMsg" (closed)="actionClose()"></app-alert> -->
+    <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
   
     <h3>Modifier Tva</h3>
     <div class="spinner-class" *ngIf="!tvaId">
