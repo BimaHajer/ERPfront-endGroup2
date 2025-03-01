@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 import { CategoriesService } from '../categories.service';
+import { Alert } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-category-add',
@@ -11,8 +12,7 @@ import { CategoriesService } from '../categories.service';
 export class CategoryAddComponent {
   validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   success: boolean = false;
-  erreurMsg: string = '';
-  msgAlert: string = '';
+  alert: Alert = new Alert()
   registerForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -42,21 +42,18 @@ submitAction(top: HTMLElement) {
       (data) => {
         this.validateBtnState = ClrLoadingState.SUCCESS;
         this.registerForm.reset({ active: true });
-
-        this.msgAlert =
-          "L'ajout de la catégorie " + data.name + " a été effectué avec succès! ";
+        this.alert = { success: true, msgSuccess: "L'ajout de catégorie " + data.id + " a été effectué avec succès! ", echec: false, open: true };
       },
       (err) => {
         console.error('Erreur lors de l\'ajout de la catégorie :', err);
 
         if (/catégorie existe déjà/.test(err.error.message)) {
-          this.erreurMsg = err.error.message;
+          this.alert = { success: false, msgEchec: err.error.message, echec: true, open: true }
         } else {
-          this.erreurMsg = "L'ajout de la catégorie a échoué.";
+          this.alert = { success: false, msgEchec: "L'ajout de catégorie a été échoué ..", echec: true, open: true }
         }
 
-        this.validateBtnState = ClrLoadingState.ERROR;
-        this.success = false;
+        this.validateBtnState = ClrLoadingState.ERROR
       }
     );
   }

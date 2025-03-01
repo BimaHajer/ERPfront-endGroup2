@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ProvidersService } from '../providers.service';
+import { Alert } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-provider-edit',
@@ -14,10 +15,9 @@ export class ProviderEditComponent {
     providerId!: number
     provider: provider = new provider()
     success: boolean = false
-    erreurMsg: string = ''
     registerForm: FormGroup
     validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT
-    msgAlert: string = ''
+    alert: Alert = new Alert()
   
     constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private providerService: ProvidersService) {
       this.registerForm = this.formBuilder.group({
@@ -63,17 +63,16 @@ export class ProviderEditComponent {
               this.provider = data
               this.success = true
               this.validateBtnState = ClrLoadingState.SUCCESS
-              this.msgAlert = "La modification de provider " + this.provider.id + " a été effectuée avec succès !"
+              this.alert = { success: true, msgSuccess: "La modification de fournisseur " + this.provider.id + " a été effectuée avec succès !", echec: false, open: true }
             },
             err => {
               console.error('Observer got an error: ' + err)
               if (/e-mail existe déjà/.test(err.error.message)) {
-                this.erreurMsg = err.error.message
+                this.alert = { success: false, msgEchec: err.error.message, echec: true, open: true }
               } else {
-                this.erreurMsg = " La modification de l'utilisateur a été échouée .. "
+                this.alert = { success: false, msgEchec: "La modification de fournisseur a été échouée ..", echec: true, open: true }
               }
-              this.success = false
-              this.validateBtnState = ClrLoadingState.ERROR
+              this.validateBtnState = ClrLoadingState.ERROR;
             },
           )
       }
