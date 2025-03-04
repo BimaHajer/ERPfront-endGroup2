@@ -1,0 +1,63 @@
+<span #top class="scroll-margin-top">
+  <span><a routerLink="/brands">Marques</a></span> /
+  <span>Ajout</span>
+</span>
+
+<section>
+  <app-alert [success]="alert.success"
+             [msgSuccess]="alert.msgSuccess"
+             [echec]="alert.echec"
+             [msgEchec]="alert.msgEchec"
+             (closed)="alert.open = false"
+             *ngIf="alert.open">
+  </app-alert>
+
+  <h3>Ajouter Marque</h3>
+
+  <form clrForm [formGroup]="registerForm">
+    <!-- Nom de la marque -->
+    <clr-input-container>
+      <label>Nom *</label>
+      <input clrInput type="text" formControlName="name" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire</clr-control-error>
+    </clr-input-container>
+
+    <!-- Image -->
+    <clr-input-container>
+      <label>Image *</label>
+    </clr-input-container>
+    <div class="pos-upload-img">
+      <app-upload-image (pathUrl)="uploadImg($event)" (deletePicture)="closeImg()"></app-upload-image>
+    </div>
+
+    <clr-textarea-container>
+      <label>Description</label>
+      <textarea clrTextarea formControlName="description"></textarea>
+    </clr-textarea-container>
+    <!-- Active / Inactive -->
+    <clr-checkbox-container>
+      <label>Active / Inactive</label>
+      <clr-checkbox-wrapper>
+        <input type="checkbox" clrCheckbox formControlName="active" />
+      </clr-checkbox-wrapper>
+    </clr-checkbox-container><br><br>
+
+    <label class="alert-sm">* Champ obligatoire</label>
+    <br><br>
+
+    <div class="btn-group btn-outline-primary">
+      <!-- Retour Button -->
+      <button class="btn btn-sm" (mousedown)="redirectTo()">
+        <cds-icon shape="undo"></cds-icon> Retour
+      </button>
+
+      <!-- Submit Button -->
+      <button class="btn btn-sm"
+              (click)="submitAction(top)"
+              [disabled]="registerForm.invalid || loadingImg"
+              [clrLoading]="loadingImg">
+        <cds-icon shape="plus"></cds-icon> Enregistrer
+      </button>
+    </div>
+  </form>
+</section>

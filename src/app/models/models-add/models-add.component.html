@@ -1,0 +1,55 @@
+<span #top class="scroll-margin-top">
+  <span><a routerLink="/models">Modèle</a></span> /
+  <span>Ajout</span>
+</span>
+<section>
+  <div>
+    <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
+
+
+  <h3>Ajouter Modèle</h3>
+  <form clrForm [formGroup]="modeleForm">
+
+    <clr-combobox-container>
+      <label>Marque *</label>
+      <clr-combobox name="brandId" [clrLoading]="loading" (clrInputChange)="onSearchChange($event)"
+          (clrOpenChange)="$event ? onSearchChange('') : null"
+          placeholder="Sélectionner marque" formControlName="brandId" >
+        <clr-options *ngIf="brands">
+          <clr-option *clrOptionItems="let item of brands; field:'name'" [clrValue]="item" >{{item.name}}</clr-option>
+        </clr-options>
+      </clr-combobox>
+      <clr-control-error>Ce champ est obligatoire</clr-control-error>
+  </clr-combobox-container>
+
+    <clr-input-container>
+      <label>Nom *</label>
+      <input clrInput type="text" formControlName="name" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+    </clr-input-container>
+      <clr-textarea-container>
+        <label>Description</label>
+        <textarea clrTextarea formControlName="description"></textarea>
+      </clr-textarea-container>
+
+    <br>
+    <clr-checkbox-container>
+      <label>Actif / Non actif</label>
+      <clr-checkbox-wrapper>
+          <input type="checkbox" clrCheckbox formControlName="active" />
+      </clr-checkbox-wrapper>
+    </clr-checkbox-container><br><br>
+  </form>
+  <label class="alert-sm">* Champ obligatoire</label>
+  <br><br>
+  <div class="btn-group btn-outline-primary">
+    <button class="btn btn-sm" (mousedown)="redirectTo()">
+      <cds-icon shape="undo"></cds-icon> Retour
+    </button>
+    <button class="btn btn-sm" (click)="submitAction(top)" [disabled]="modeleForm.invalid"
+      [clrLoading]="validateBtnState">
+      <cds-icon shape="plus"></cds-icon> Enregistrer
+    </button>
+  </div>
+</div>
+</section>

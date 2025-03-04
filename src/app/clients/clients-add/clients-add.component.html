@@ -1,0 +1,64 @@
+<span #top class="scroll-margin-top">
+  <span><a routerLink="/clients">Client</a></span> /
+  <span>Ajout</span>
+</span>
+<section>
+  <app-alert [success]="alert.success"
+  [msgSuccess]="alert.msgSuccess"
+  [echec]="alert.echec"
+  [msgEchec]="alert.msgEchec"
+  (closed)="alert.open = false"
+  *ngIf="alert.open">
+</app-alert>
+
+  <h3>Ajouter Client</h3>
+  <form clrForm [formGroup]="registerForm">
+    <clr-input-container>
+      <label>Nom *</label>
+      <input clrInput type="text" formControlName="firstName" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Prénom *</label>
+      <input clrInput type="text" formControlName="lastName" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Email *</label>
+      <input clrInput type="text" formControlName="email" email />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+      <clr-control-error *clrIfError="'email'">Adresse mail non valide </clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Téléphone *</label>
+      <input clrInput type="text" formControlName="phone" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire </clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Adresse</label>
+      <input clrInput type="text" formControlName="address" />
+    </clr-input-container>
+    <clr-input-container>
+      <label>Code Postal</label>
+      <input clrInput type="text" formControlName="zipCode" />
+    </clr-input-container>
+    <br>
+    <clr-checkbox-container>
+      <label>Actif / Non actif</label>
+      <clr-checkbox-wrapper>
+        <input type="checkbox" clrCheckbox formControlName="active" />
+      </clr-checkbox-wrapper>
+    </clr-checkbox-container><br><br>
+  </form>
+  <label class="alert-sm">* Champ obligatoire</label>
+  <br><br>
+  <div class="btn-group btn-outline-primary">
+    <button class="btn btn-sm" (mousedown)="redirectTo()">
+      <cds-icon shape="undo"></cds-icon> Retour
+    </button>
+    <button class="btn btn-sm" (click)="submitAction(top)" [disabled]="registerForm.invalid"
+      [clrLoading]="validateBtnState">
+      <cds-icon shape="plus"></cds-icon> Enregistrer
+    </button>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+<span>
+    <span><a routerLink="/clients">Clients</a></span> /
+    <span>Détails</span>
+  </span>
+  <br>
+  <section>
+    <h3>Détails du client</h3>
+    <div class="spinner-class" *ngIf="!clientId">
+      <clr-spinner [clrMedium]="true"></clr-spinner>
+    </div>
+    <form clrForm *ngIf="clientId">
+      <clr-input-container>
+        <label>Id </label>
+        <input clrInput type="text" value="{{client.id}}" readonly *ngIf="client.id" />
+        <label *ngIf="!client.id"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Nom </label>
+        <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="client.firstName" name="firstName"
+          *ngIf="client.firstName" />
+        <label *ngIf="!client.firstName"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Prénom </label>
+        <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="client.lastName" name="lastName"
+          *ngIf="client.lastName" />
+        <label *ngIf="!client.lastName"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Email </label>
+        <input class="input-full-text" clrInput type="text" readonly name="email" [ngModel]="client.email"
+          *ngIf="client.email" />
+        <label *ngIf="!client.email"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Téléphone</label>
+        <input clrInput type="text" readonly name="phone" [ngModel]="client.phone" *ngIf="client.phone" />
+        <label *ngIf="!client.phone"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Adresse</label>
+        <input class="input-full-text" type="text" clrInput readonly [ngModel]="client.address" name="address"
+          *ngIf="client.address" />
+        <label *ngIf="!client.address"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Code Postal</label>
+        <input type="number" class="input-full-text" clrInput readonly [ngModel]="client.zipCode" name="zipCode"
+          *ngIf="client.zipCode" />
+        <label *ngIf="!client.zipCode"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Actif / Non actif</label>
+        <label *ngIf="client.active==true"><span class="label label-success">Actif</span></label>
+        <label *ngIf="client.active==false"><span class="label label-warning">Non actif</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Créé(e) le</label>
+        <input clrInput *ngIf="client.createdAt" value="{{ client.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!client.createdAt "><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Mis(e) à jour le</label>
+        <input clrInput *ngIf="client.updatedAt" value="{{ client.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!client.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <br>
+
+      <div class="btn-group btn-sm btn-outline-primary ">
+        <button class="btn" (mousedown)="redirectTo()">
+          <cds-icon shape="undo"></cds-icon> Retour
+        </button>
+        <button class="btn" routerLink="/clients/edit/{{client.id}}" *ngIf="client.id!=currentClient">
+          <cds-icon shape="pencil"></cds-icon> Modifier Client
+        </button>
+        <button class="btn" (click)="deleteAction()" *ngIf="client.id!=currentClient">
+          <cds-icon shape="trash"></cds-icon> Supprimer
+        </button>
+      </div>
+    </form>
+
+  </section>
+  <app-client-delete *ngIf="showAlert && client.id" (closed)="close()" (saved)="save()" [allSelected]="[client.id]"></app-client-delete>

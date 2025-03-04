@@ -1,0 +1,8 @@
+.brand-image {
+  width: 45px;  /* Ajuste selon tes besoins */
+  height: 45px;  /* Garde une hauteur fixe */
+  object-fit: cover;  /* Assure que l'image garde ses proportions */
+  border-radius: 5px;  /* Ajoute des bords arrondis */
+  display: block;  /* Évite les marges indésirables */
+  margin: auto;  /* Centre l'image dans la cellule */
+}

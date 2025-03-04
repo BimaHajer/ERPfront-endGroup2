@@ -1,0 +1,82 @@
+<span>
+  <span><a routerLink="/brands">Marques</a></span> /
+  <span>Détails</span>
+</span>
+<br>
+<section>
+  <h3>Détails de la marque</h3>
+  <div class="spinner-class" *ngIf="!brandId">
+    <clr-spinner [clrMedium]="true"></clr-spinner>
+  </div>
+  <form clrForm *ngIf="brandId">
+    <clr-input-container>
+      <label>Id </label>
+      <input clrInput type="text" value="{{brand.id}}" readonly *ngIf="brand.id" />
+      <span *ngIf="!brand.id" class="label label-warning">Non disponible!</span>
+    </clr-input-container>
+
+    <clr-input-container>
+      <label>Nom </label>
+      <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="brand.name" name="name"
+        *ngIf="brand.name" />
+      <span *ngIf="!brand.name" class="label label-warning">Non disponible!</span>
+    </clr-input-container>
+
+    <clr-input-container>
+      <label>Description </label>
+      <textarea class="input-full-text" clrInput readonly [(ngModel)]="brand.description" name="description"
+        *ngIf="brand.description"></textarea>
+      <span *ngIf="!brand.description" class="label label-warning">Non disponible!</span>
+    </clr-input-container>    
+
+    <clr-input-container>
+      <label>Actif / Non actif</label>
+      <span *ngIf="brand.active" class="label label-success">Actif</span>
+      <span *ngIf="!brand.active" class="label label-warning">Non actif</span>
+    </clr-input-container>
+
+    <clr-input-container>
+      <label>Créé(e) le</label>
+      <input clrInput *ngIf="brand.createdAt" value="{{ brand.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+      <span *ngIf="!brand.createdAt" class="label label-warning">Non disponible!</span>
+    </clr-input-container>
+
+    <clr-input-container>
+      <label>Mis(e) à jour le</label>
+      <input clrInput *ngIf="brand.updatedAt" value="{{ brand.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+      <span *ngIf="!brand.updatedAt" class="label label-warning">Non disponible!</span>
+    </clr-input-container>
+
+    <clr-input-container>
+      <label>Image </label>
+      <span *ngIf="!brand.picture" class="label label-warning">Non disponible!</span>
+    </clr-input-container>
+
+    <div class="clr-row clr-align-items-center">
+      <div class="clr-col-7 clr-col-md-4 clr-offset-sm-2">
+        <div class="picture-brand" *ngIf="brand.picture">
+          <div class="card">
+            <div class="card-img container">
+              <img [src]="brand.picture">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group btn-sm btn-outline-primary">
+      <button class="btn" (mousedown)="redirectTo()">
+        <cds-icon shape="undo"></cds-icon> Retour
+      </button>
+      <button class="btn" routerLink="/brands/edit/{{brand.id}}">
+        <cds-icon shape="pencil"></cds-icon> Modifier Marque
+      </button>
+      <button class="btn" (click)="deleteAction()">
+        <cds-icon shape="trash"></cds-icon> Supprimer
+      </button>
+    </div>
+  </form>
+
+</section>
+
+<app-brand-delete *ngIf="showAlert && brand.id" (closed)="close()" (saved)="save()" [allSelected]="[brand.id]"></app-brand-delete>
