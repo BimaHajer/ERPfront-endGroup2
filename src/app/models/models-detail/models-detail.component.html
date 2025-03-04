@@ -1,0 +1,69 @@
+<span>
+  <span><a routerLink="/models">Modèls</a></span> /
+  <span>Détails</span>
+</span>
+<br>
+<section>
+  <h3>Détails de modèle</h3>
+  <div class="spinner-class" *ngIf="!modeleId">
+      <clr-spinner [clrMedium]="true"></clr-spinner>
+  </div>
+  <form clrForm *ngIf="modeleId">
+      <clr-input-container>
+          <label>Id </label>
+          <input clrInput type="text" value="{{modele.id}}" readonly *ngIf="modele.id" />
+          <label *ngIf="!modele.id"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+          <label>Nom </label>
+          <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="modele.name" name="name"
+              *ngIf="modele.name" />
+          <label *ngIf="!modele.name"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+
+      <clr-textarea-container>
+          <label>Description</label>
+          <textarea clrTextarea [(ngModel)]="modele.description" name="description" required *ngIf="modele.description"></textarea>
+          <label *ngIf="!modele.description"><span class="label label-warning">Non disponible!</span></label>
+      </clr-textarea-container>
+
+      <clr-input-container>
+        <label>Marque</label>
+        <input clrInput type="text" value="{{modele.brandId?.name}}" readonly *ngIf="modele.brandId?.name" />
+        <label *ngIf="!modele.brandId?.name"><span class="label label-warning">Non disponible!</span></label>
+
+      </clr-input-container>
+
+
+      <clr-input-container>
+          <label>Actif / Non actif</label>
+          <label *ngIf="modele.active==true"><span class="label label-success">Actif</span></label>
+          <label *ngIf="modele.active==false"><span class="label label-warning">Non actif</span></label>
+      </clr-input-container>
+      <clr-input-container>
+          <label>Créé(e) le</label>
+          <input clrInput *ngIf="modele.createdAt" value="{{ modele.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+          <label *ngIf="!modele.createdAt "><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+          <label>Mis(e) à jour le</label>
+          <input clrInput *ngIf="modele.updatedAt" value="{{ modele.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+          <label *ngIf="!modele.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <br>
+
+      <div class="btn-group btn-sm btn-outline-primary ">
+          <button class="btn" (mousedown)="redirectTo()">
+              <cds-icon shape="undo"></cds-icon> Retour
+          </button>
+          <button class="btn" routerLink="/models/edit/{{modele.id}}" *ngIf="modele.id!=currentModele">
+              <cds-icon shape="pencil"></cds-icon> Modifier Modèle
+          </button>
+          <button class="btn" (click)="deleteAction()" *ngIf="modele.id!=currentModele">
+              <cds-icon shape="trash"></cds-icon> Supprimer
+          </button>
+      </div>
+  </form>
+
+</section>
+<app-delete-modele *ngIf="showAlert && modele.id" (closed)="close()" (saved)="save()" [allSelected]="[modele.id]"></app-delete-modele>

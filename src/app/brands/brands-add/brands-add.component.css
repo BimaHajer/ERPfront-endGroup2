@@ -1,0 +1,11 @@
+.pos-upload-img {
+  padding-top: 2%;
+  padding-left: 17%;
+}
+
+table img {
+  width: 40px;  /* Ajuste selon tes besoins */
+  height: 40px;  /* Fixe une hauteur pour garder une taille uniforme */
+  object-fit: cover;  /* Pour éviter la déformation */
+  border-radius: 5px;  /* Facultatif pour arrondir */
+}

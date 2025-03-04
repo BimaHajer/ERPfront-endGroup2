@@ -1,0 +1,84 @@
+<section class="title">
+  <h3 class="welcome">Marques</h3>
+
+  <clr-datagrid [clrDgLoading]="loading" (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="allSelected"
+    (clrDgSelectedChange)="selectionChanged()" [clrDgRowSelection]="false">
+
+    <clr-dg-action-bar>
+      <div class="btn-group">
+        <button class="btn btn-sm" routerLink="/brands/add/">
+          <cds-icon shape="plus"></cds-icon> Ajouter Marque
+        </button>
+        <button class="btn btn-sm" (click)="editAction()" [disabled]="allSelected.length != 1">
+          <cds-icon shape="pencil"></cds-icon> Modifier
+        </button>
+        <button class="btn btn-sm" (click)="deleteMultipleAction()" [disabled]="allSelected.length == 0">
+          <cds-icon shape="trash"></cds-icon> Supprimer
+        </button>
+      </div>
+    </clr-dg-action-bar>
+
+    <clr-dg-column [clrDgSortBy]="'id'" [clrDgSortOrder]="descSort">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Id
+      </ng-container>
+    </clr-dg-column>
+
+    <clr-dg-column [clrDgSortBy]="'name'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Nom
+      </ng-container>
+    </clr-dg-column>
+
+    <clr-dg-column [clrDgSortBy]="'description'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Description
+      </ng-container>
+    </clr-dg-column>
+
+    <clr-dg-column [clrDgSortBy]="'image'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Image
+      </ng-container>
+    </clr-dg-column>
+
+    <clr-dg-column [clrDgSortBy]="'active'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Actif / Non Actif
+      </ng-container>
+    </clr-dg-column>
+
+    <clr-dg-placeholder> Nous n'avons trouvé aucune marque! </clr-dg-placeholder>
+
+    <clr-dg-row *ngFor="let item of brands" [clrDgItem]="item" class="cursor-pointer" [clrDgSelected]="existInSelected(item)">
+      <clr-dg-cell routerLink="/brands/detail/{{item.id}}">{{item.id}}</clr-dg-cell>
+      <clr-dg-cell routerLink="/brands/detail/{{item.id}}">
+        <span *ngIf="item.name">{{item.name}}</span>
+        <cds-icon shape="ban" *ngIf="!item.name"></cds-icon>
+      </clr-dg-cell>
+      <clr-dg-cell routerLink="/brands/detail/{{item.id}}">
+        <span *ngIf="item.description">{{item.description}}</span>
+        <cds-icon shape="ban" *ngIf="!item.description"></cds-icon>
+      </clr-dg-cell>
+      <clr-dg-cell routerLink="/brands/detail/{{item.id}}">
+        <!-- Affichage de l'image -->
+        <img *ngIf="item.picture" [src]="item.picture" alt="Image de la marque" class="brand-image" />
+        <!-- Si l'image n'existe pas, affichage d'un message -->
+        <span *ngIf="!item.picture" class="label label-warning">Non disponible</span>
+      </clr-dg-cell>
+      <clr-dg-cell routerLink="/brands/detail/{{item.id}}">
+        <span *ngIf="item.active" class="label label-success">Actif</span>
+        <span *ngIf="!item.active" class="label label-warning">Non actif</span>
+      </clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgTotalItems]="count" [clrDgPageSize]="pageSize">
+        <clr-dg-page-size [clrPageSizeOptions]="pageSizeOptions">Marques par page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} de {{count}}
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</section>
+
+<app-brand-delete *ngIf="showAlert" (closed)="close()" (saved)="save()" [allSelected]="idsSelected"></app-brand-delete>
