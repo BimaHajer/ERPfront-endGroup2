@@ -18,7 +18,7 @@ export class BrandAddComponent {
   loading: boolean = false;
   alert: Alert = new Alert();
   brands: any[] = [];
-  redirectTo: any;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,9 +26,9 @@ export class BrandAddComponent {
     private sharedService: SharedService
   ) {
     this.registerForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      picture: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      name: [, [Validators.required]],
+      picture: [, [Validators.required]],
+      description: [],
       active: [true, [Validators.required]],
       brandId: []
     });
@@ -37,6 +37,10 @@ export class BrandAddComponent {
   ngOnInit() {
     this.registerForm.statusChanges.subscribe();
     this.getBrands({ take: 15, where: { active: true } });
+  }
+
+  redirectTo() {
+    window.history.back();
   }
 
   getBrands(filter: any) {

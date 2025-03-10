@@ -71,7 +71,7 @@
         <cds-icon shape="undo"></cds-icon> Retour
       </button>
       <button class="btn" routerLink="/providers/edit/{{provider.id}}" *ngIf="provider.id!=currentProvider">
-        <cds-icon shape="pencil"></cds-icon> Modifier provider
+        <cds-icon shape="pencil"></cds-icon> Modifier Fournisseur
       </button>
       <button class="btn" (click)="deleteAction()" *ngIf="provider.id!=currentProvider">
         <cds-icon shape="trash"></cds-icon> Supprimer

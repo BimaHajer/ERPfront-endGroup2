@@ -1,11 +1,11 @@
 <span #top class="scroll-margin-top">
-  <span><a routerLink="/models">Modèle</a></span>/
+  <span><a routerLink="/models">Modèles</a></span>/
   <span>Modification</span>
 </span>
 
 <section>
   <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
-  <h3>Modifier modèl</h3>
+  <h3>Modifier modèle</h3>
 
   <div class="spinner-class" *ngIf="!modeleId">
     <clr-spinner [clrMedium]="true"></clr-spinner>

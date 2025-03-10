@@ -18,7 +18,8 @@ export class ModelsDeleteComponent {
   toDelete: number[] = []
   msgAlertDisable: string = ''
   msgAlertDelete: string = ''
-
+  idsDisable: string = '';
+  idsDelete: string = '';
   constructor(private modeleService: ModelsService) { }
 
   ngOnInit(): void {
@@ -26,7 +27,18 @@ export class ModelsDeleteComponent {
       this.modeleService.getModels({ loadRelationIds: true, where: { id: {type: "in", value: this.allSelected} } }).subscribe(
         data => {
           data[0].forEach((element:any) => {
-           this.toDelete.push(element.id)
+            if (element.products?.length) {
+              if (element.id) {
+                this.toDisable.push(element.id);
+                this.idsDisable += element.id + ', ';
+              }
+            } else {
+              if (element.id) {
+                this.toDelete.push(element.id);
+                this.idsDelete += element.id + ', ';
+              }
+            }
+
 
             if (this.toDelete.length + this.toDisable.length == this.allSelected?.length) {
               if (this.toDisable.length != 0) {
@@ -62,7 +74,7 @@ export class ModelsDeleteComponent {
             this.alertError = true;
           }
         },
-        (err: any) => { 
+        (err: any) => {
           console.error('Observer got an error: ' + err);
           this.alertError = true;
           this.validateBtnState = ClrLoadingState.ERROR;

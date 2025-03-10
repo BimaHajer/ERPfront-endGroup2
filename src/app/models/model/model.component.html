@@ -1,5 +1,5 @@
 <section class="title">
-  <h3 class="welcome">Models</h3>
+  <h3 class="welcome">Modèles</h3>
 
   <clr-datagrid [clrDgLoading]="loading" (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="allSelected"
       (clrDgSelectedChange)="selectionChanged()" [clrDgRowSelection]="false">
@@ -7,7 +7,7 @@
       <clr-dg-action-bar>
           <div class="btn-group">
               <button class="btn btn-sm" routerLink="/models/add/">
-                  <cds-icon shape="plus"></cds-icon> Ajouter Model
+                  <cds-icon shape="plus"></cds-icon> Ajouter Modéle
               </button>
               <button class="btn btn-sm" (click)="editAction()"
                   [disabled]="allSelected.length !== 1">
@@ -32,15 +32,15 @@
           </ng-container>
       </clr-dg-column>
 
-      <clr-dg-column [clrDgSortBy]="'description'">
+      <clr-dg-column [clrDgSortBy]="'brandId'">
           <ng-container *clrDgHideableColumn="{ hidden: false }">
-              Description
+              Marque
           </ng-container>
       </clr-dg-column>
 
       <clr-dg-column [clrDgSortBy]="'active'">
           <ng-container *clrDgHideableColumn="{ hidden: false }">
-              Actif
+            Actif / Non actif
           </ng-container>
       </clr-dg-column>
 
@@ -54,9 +54,9 @@
               <cds-icon shape="ban" *ngIf="!item.name"></cds-icon>
           </clr-dg-cell>
           <clr-dg-cell routerLink="/models/detail/{{item.id}}">
-              <span *ngIf="item.description">{{item.description}}</span>
-              <cds-icon shape="ban" *ngIf="!item.description"></cds-icon>
-          </clr-dg-cell>
+            <span *ngIf="item.brandId">{{item.brandId.name}}</span>
+            <cds-icon shape="ban" *ngIf="!item.brandId"></cds-icon>
+        </clr-dg-cell>
           <clr-dg-cell routerLink="/models/detail/{{item.id}}">
               <span *ngIf="item.active" class="label label-success">Actif</span>
               <span *ngIf="!item.active" class="label label-warning">Non actif</span>
@@ -65,7 +65,7 @@
 
       <clr-dg-footer>
           <clr-dg-pagination #pagination [clrDgTotalItems]="count" [clrDgPageSize]="pageSize">
-              <clr-dg-page-size [clrPageSizeOptions]="pageSizeOptions">Models par page</clr-dg-page-size>
+              <clr-dg-page-size [clrPageSizeOptions]="pageSizeOptions">Modèles par page</clr-dg-page-size>
               {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} de {{count}}
           </clr-dg-pagination>
       </clr-dg-footer>
