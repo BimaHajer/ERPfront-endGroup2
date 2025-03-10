@@ -1,12 +1,12 @@
 <section class="title">
     <h3 class="welcome">Catégories</h3>
-  
+
     <clr-datagrid [clrDgLoading]="loading" (clrDgRefresh)="refresh($event)" [(clrDgSelected)]="allSelected"
         (clrDgSelectedChange)="selectionChanged()" [clrDgRowSelection]="false">
         <clr-dg-action-bar>
             <div class="btn-group">
                 <button class="btn btn-sm" routerLink="/categories/add/">
-                    <cds-icon shape="plus"></cds-icon> Ajouter Catégories
+                    <cds-icon shape="plus"></cds-icon> Ajouter Catégorie
                 </button>
                 <button class="btn btn-sm" (click)="editAction()"
                     [disabled]="allSelected.length != 1">
@@ -65,7 +65,7 @@
         </clr-dg-footer>
     </clr-datagrid>
   </section>
-  <app-category-delete *ngIf="showAlert" (closed)="close()" (saved)="save()" [allSelected]="idsSelected"></app-category-delete> 
+  <app-category-delete *ngIf="showAlert" (closed)="close()" (saved)="save()" [allSelected]="idsSelected"></app-category-delete>
 
 
 

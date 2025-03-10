@@ -11,23 +11,36 @@ export class CategoryDeleteComponent {
     @Input() allSelected: number[] | undefined
     @Output() closed = new EventEmitter<boolean>();
     @Output() saved = new EventEmitter<boolean>();
-  
+
     alertError: boolean = false
     validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT
     toDisable: number[] = []
     toDelete: number[] = []
+    idsDisable: string = '';
+    idsDelete: string = '';
+
     msgAlertDisable: string = ''
     msgAlertDelete: string = ''
-  
+
     constructor(private CategoriesService: CategoriesService) { }
-  
+
     ngOnInit(): void {
       if (this.allSelected?.length != 0) {
         this.CategoriesService.getCategories({ loadRelationIds: true, where: { id: {type: "in", value: this.allSelected} } }).subscribe(
           data => {
             data[0].forEach((element:any) => {
-             this.toDelete.push(element.id)
-  
+             if (element.products?.length) {
+              if (element.id) {
+                this.toDisable.push(element.id);
+                this.idsDisable += element.id + ', ';
+              }
+            } else {
+              if (element.id) {
+                this.toDelete.push(element.id);
+                this.idsDelete += element.id + ', ';
+              }
+            }
+
               if (this.toDelete.length + this.toDisable.length == this.allSelected?.length) {
                 if (this.toDisable.length != 0) {
                   if (this.toDisable.length == 1) {
@@ -46,11 +59,11 @@ export class CategoryDeleteComponent {
           })
       }
     }
-  
+
     close() {
       this.closed.emit(false);
     }
-  
+
     deleteCategory() {
       if (this.allSelected?.length != 0) {
         this.validateBtnState = ClrLoadingState.LOADING

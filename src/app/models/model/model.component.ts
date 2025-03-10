@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Modele } from '../models';
-import { ModelsService } from '../models.service'; 
+import { ModelsService } from '../models.service';
 import { Router } from '@angular/router';
 import { ClrDatagridSortOrder, ClrDatagridStateInterface } from '@clr/angular';
 import { FilterDto } from '../../filter.dto';
@@ -36,10 +36,12 @@ export class ModelsComponent implements OnInit {
     this.loading = true;
     this.state = state;
     this.filter = Object.assign(this.filter, handleStateFilter(this.state));
+    this.filter.relations = ['brandId'];
     this.getModels();
   }
 
   getModels() {
+    this.filter.relations = ['brandId'];
     this.modelService.getModels(this.filter).subscribe(
       data => {
         this.models = data[0];

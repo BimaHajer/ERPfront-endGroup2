@@ -1,5 +1,5 @@
 <span>
-  <span><a routerLink="/models">Modèls</a></span> /
+  <span><a routerLink="/models">Modèles</a></span> /
   <span>Détails</span>
 </span>
 <br>
@@ -57,7 +57,7 @@
               <cds-icon shape="undo"></cds-icon> Retour
           </button>
           <button class="btn" routerLink="/models/edit/{{modele.id}}" *ngIf="modele.id!=currentModele">
-              <cds-icon shape="pencil"></cds-icon> Modifier Modèle
+              <cds-icon shape="pencil"></cds-icon> Modifier Modéle
           </button>
           <button class="btn" (click)="deleteAction()" *ngIf="modele.id!=currentModele">
               <cds-icon shape="trash"></cds-icon> Supprimer

@@ -1,0 +1,88 @@
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink>Information générale</button>
+    <clr-tab-content *clrIfActive>
+
+      <br>
+      <section>
+        <h3>Détails de Produit</h3>
+        <div class="spinner-class" *ngIf="!productId">
+          <clr-spinner [clrMedium]="true"></clr-spinner>
+        </div>
+        <form clrForm *ngIf="productId">
+          <clr-input-container>
+            <label>Id </label>
+            <input clrInput type="text" value="{{Product.id}}" readonly *ngIf="Product.id" />
+            <label *ngIf="!Product.id"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Nom </label>
+            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.name" name="name"
+              *ngIf="Product.name" />
+            <label *ngIf="!Product.name"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Description </label>
+            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.description" name="description"
+              *ngIf="Product.description" />
+            <label *ngIf="!Product.description"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Catégorie</label>
+            <input class="input-full-text" clrInput type="text" readonly [value]="Product.categoryId?.name" name="categoryId"  />
+            <label *ngIf="!Product.categoryId"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+
+          <clr-input-container>
+            <label>Marque</label>
+            <input  class="input-full-text"  clrInput type="text"  readonly [value]="Product.modelId?.brandId?.name " name="brandId"   />
+            <label *ngIf="!Product.modelId?.brandId"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+
+          <clr-input-container>
+            <label>Modèle</label>
+            <input class="input-full-text" clrInput type="text" readonly [value]="Product.modelId?.name" name="modelId"  />
+            <label *ngIf="!Product.modelId"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Actif / Non actif</label>
+            <label *ngIf="Product.active==true"><span class="label label-success">Actif</span></label>
+            <label *ngIf="Product.active==false"><span class="label label-warning">Non actif</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Créé(e) le</label>
+            <input clrInput *ngIf="Product.createdAt" value="{{ Product.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+            <label *ngIf="!Product.createdAt "><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Mis(e) à jour le</label>
+            <input clrInput *ngIf="Product.updatedAt" value="{{ Product.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+            <label *ngIf="!Product.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <br>
+
+          <div class="btn-group btn-sm btn-outline-primary ">
+            <button class="btn" (mousedown)="redirectTo()">
+              <cds-icon shape="undo"></cds-icon> Retour
+            </button>
+            <button class="btn" routerLink="/products/edit/{{Product.id}}" *ngIf="Product.id!=currentProduct">
+              <cds-icon shape="pencil"></cds-icon> Modifier produit
+            </button>
+            <button class="btn" (click)="deleteAction()" *ngIf="Product.id!=currentProduct">
+              <cds-icon shape="trash"></cds-icon> Supprimer
+            </button>
+          </div>
+        </form>
+
+      </section>
+      <app-product-delete *ngIf="showAlert && Product.id" (closed)="close()" (saved)="save()" [allSelected]="[Product.id]"></app-product-delete>
+
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Galerie</button>
+    <clr-tab-content *clrIfActive>
+      <p cds-text="body" cds-layout="m-t:md">Content for Management tab.</p>
+    </clr-tab-content>
+  </clr-tab>
+</clr-tabs>

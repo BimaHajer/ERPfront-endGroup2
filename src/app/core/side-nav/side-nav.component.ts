@@ -22,26 +22,46 @@ export class SideNavComponent {
         "subsNavbar": []
     },
     {
+      "name": "Clients",
+      "route": "clients",
+      "icon": "users",
+      "order": 3,
+      "subsNavbar": []
+    },
+    {
       "name": "Fournisseurs",
       "route": "providers",
       "icon": "user",
-      "order": 3,
+      "order": 4,
       "subsNavbar": []
     },
     {
       "name": "Catégories",
       "route": "categories",
       "icon": "grid-view",
-      "order": 4,
+      "order": 5,
       "subsNavbar": []
     },
     {
       "name": "Tva",
       "route": "tva",
       "icon": "factory",
-      "order": 5,
+      "order": 6,
+      "subsNavbar": []
+    },
+    {
+      "name": "Marques",
+      "route": "brands",
+      "icon": "tags",
+      "order": 7,
+      "subsNavbar": []
+    },
+    {
+      "name": "Modèles",
+      "route": "models",
+      "icon": "cog",
+      "order": 8,
       "subsNavbar": []
     }
-]
-
+  ];
 }
