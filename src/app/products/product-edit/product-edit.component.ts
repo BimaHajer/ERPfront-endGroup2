@@ -261,7 +261,7 @@
         this.productsService.editProduct(this.productId, product).subscribe(
           (data) => {
             this.validateBtnState = ClrLoadingState.SUCCESS;
-            this.alert = { success: true, msgSuccess: "Produit modifié avec succès!", echec: false, open: true };
+            this.alert = { success: true, msgSuccess: "La modification de produit " + data.id + " a été effectuée avec succès !", echec: false, open: true }
           },
           (err) => {
             this.alert = { success: false, msgEchec: err.error.message, echec: true, open: true };

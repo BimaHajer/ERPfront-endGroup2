@@ -215,7 +215,7 @@ export class ProductAddComponent {
         (data) => {
           this.validateBtnState = ClrLoadingState.SUCCESS;
           this.form.reset({ active: true });
-          this.alert = { success: true, msgSuccess: "Produit ajouté avec succès!", echec: false, open: true };
+          this.alert = { success: true, msgSuccess: "L'ajout de produit " + data.id + " a été effectué avec succès! ", echec: false, open: true };
         },
         (err) => {
           this.alert = { success: false, msgEchec: err.error.message, echec: true, open: true };

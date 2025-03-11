@@ -62,6 +62,13 @@ export class SideNavComponent {
       "icon": "cog",
       "order": 8,
       "subsNavbar": []
+    },
+    {
+      "name": "Produits",
+      "route": "products",
+      "icon": "shopping-cart",
+      "order": 9,
+      "subsNavbar": []
     }
   ];
 }

@@ -10,9 +10,6 @@ import {
 } from '../../shared/shared.service';
 import { ProductsService } from '../products.service';
 import { Router } from '@angular/router';
-import { ModelsService } from '../../models/models.service';
-import { CategoriesService } from '../../categories/categories.service';
-import { BrandsService } from '../../brands/brands.service';
 import { Brand } from '../../brands/brands';
 import { Category } from '../../categories/category';
 import { Modele } from '../../models/models';
