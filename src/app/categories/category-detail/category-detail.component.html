@@ -22,9 +22,9 @@
       </clr-input-container>
       <clr-input-container>
         <label>Description </label>
-        <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Category.description" name="description"
-          *ngIf="Category.description" />
-        <label *ngIf="!Category.description"><span class="label label-warning">Non disponible!</span></label>
+        <textarea class="input-full-text" clrInput readonly [(ngModel)]="Category.description" name="description"
+          *ngIf="Category.description"></textarea>
+        <span *ngIf="!Category.description" class="label label-warning">Non disponible!</span>
       </clr-input-container>
       <clr-input-container>
         <label>Actif / Non actif</label>
@@ -42,7 +42,7 @@
         <label *ngIf="!Category.updatedAt"><span class="label label-warning">Non disponible!</span></label>
       </clr-input-container>
       <br>
-  
+
       <div class="btn-group btn-sm btn-outline-primary ">
         <button class="btn" (mousedown)="redirectTo()">
           <cds-icon shape="undo"></cds-icon> Retour
@@ -55,9 +55,9 @@
         </button>
       </div>
     </form>
-  
+
   </section>
   <app-category-delete *ngIf="showAlert && Category.id" (closed)="close()" (saved)="save()" [allSelected]="[Category.id]"></app-category-delete>
- 
-    
+
+
 

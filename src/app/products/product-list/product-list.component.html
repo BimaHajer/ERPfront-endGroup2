@@ -28,11 +28,6 @@
               Nom
           </ng-container>
       </clr-dg-column>
-      <clr-dg-column [clrDgSortBy]="'description'">
-          <ng-container *clrDgHideableColumn="{hidden: false}">
-             Description
-          </ng-container>
-      </clr-dg-column>
       <clr-dg-column [clrDgSortBy]="'categoryId'">
         <ng-container *clrDgHideableColumn="{hidden: false}">
            Catégorie
@@ -61,10 +56,6 @@
           <clr-dg-cell routerLink="/products/detail/{{item.id}}">
               <span *ngIf="item.name">{{item.name}}</span>
               <cds-icon shape="ban" *ngIf="!item.name"></cds-icon>
-          </clr-dg-cell>
-          <clr-dg-cell routerLink="/products/detail/{{item.id}}">
-              <span *ngIf="item.name">{{item.description}}</span>
-              <cds-icon shape="ban" *ngIf="!item.description"></cds-icon>
           </clr-dg-cell>
           <clr-dg-cell routerLink="/products/detail/{{item.id}}">
             <span *ngIf="item.categoryId">{{ item.categoryId.name }}</span>

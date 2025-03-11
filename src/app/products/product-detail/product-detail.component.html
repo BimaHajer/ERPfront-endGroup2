@@ -21,12 +21,12 @@
               *ngIf="Product.name" />
             <label *ngIf="!Product.name"><span class="label label-warning">Non disponible!</span></label>
           </clr-input-container>
-          <clr-input-container>
-            <label>Description </label>
-            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.description" name="description"
-              *ngIf="Product.description" />
+          <clr-textarea-container>
+            <label>Description</label>
+            <textarea clrTextarea [(ngModel)]="Product.description" name="description" required *ngIf="Product.description"></textarea>
             <label *ngIf="!Product.description"><span class="label label-warning">Non disponible!</span></label>
-          </clr-input-container>
+        </clr-textarea-container>
+
           <clr-input-container>
             <label>Catégorie</label>
             <input class="input-full-text" clrInput type="text" readonly [value]="Product.categoryId?.name" name="categoryId"  />
@@ -77,6 +77,68 @@
       </section>
       <app-product-delete *ngIf="showAlert && Product.id" (closed)="close()" (saved)="save()" [allSelected]="[Product.id]"></app-product-delete>
 
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Tarif</button>
+    <clr-tab-content *clrIfActive>
+      <section>
+        <h3>Détails de Produit</h3>
+        <div class="spinner-class" *ngIf="!productId">
+          <clr-spinner [clrMedium]="true"></clr-spinner>
+        </div>
+        <form clrForm *ngIf="productId">
+          <clr-input-container>
+            <label>Id </label>
+            <input clrInput type="text" value="{{Product.id}}" readonly *ngIf="Product.id" />
+            <label *ngIf="!Product.id"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>TVA en pourcentage (%) </label>
+            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.tva" name="tva"
+              *ngIf="Product.tva" />
+            <label *ngIf="!Product.tva"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Prix d'achat HT </label>
+            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.priceHT" name="priceHT"
+              *ngIf="Product.priceHT" />
+            <label *ngIf="!Product.priceHT"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Prix TTC </label>
+            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.priceTTC" name="priceTTC"
+              *ngIf="Product.priceTTC" />
+            <label *ngIf="!Product.priceTTC"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Quantité initiale </label>
+            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.initialQuantity" name="initialQuantity"
+              *ngIf="Product.initialQuantity" />
+            <label *ngIf="!Product.initialQuantity"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Quantité restante </label>
+            <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="Product.remainingQuantity" name="remainingQuantity"
+              *ngIf="Product.remainingQuantity" />
+            <label *ngIf="!Product.remainingQuantity"><span class="label label-warning">Non disponible!</span></label>
+          </clr-input-container>
+          <br>
+          <div class="btn-group btn-sm btn-outline-primary ">
+            <button class="btn" (mousedown)="redirectTo()">
+              <cds-icon shape="undo"></cds-icon> Retour
+            </button>
+            <button class="btn" routerLink="/products/edit/{{Product.id}}" *ngIf="Product.id!=currentProduct">
+              <cds-icon shape="pencil"></cds-icon> Modifier produit
+            </button>
+            <button class="btn" (click)="deleteAction()" *ngIf="Product.id!=currentProduct">
+              <cds-icon shape="trash"></cds-icon> Supprimer
+            </button>
+          </div>
+        </form>
+
+      </section>
+      <app-product-delete *ngIf="showAlert && Product.id" (closed)="close()" (saved)="save()" [allSelected]="[Product.id]"></app-product-delete>
     </clr-tab-content>
   </clr-tab>
   <clr-tab>
