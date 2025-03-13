@@ -16,6 +16,6 @@ export class User {
     public updatedAt?: string,
     public createdBy?: number,
     public updatedBy?: number,
-
+    public roleId?:{ id: number; name: string }
   ) { }
 }

@@ -50,6 +50,11 @@
       <label *ngIf="!user.zipCode"><span class="label label-warning">Non disponible!</span></label>
     </clr-input-container>
     <clr-input-container>
+      <label>Rôle</label>
+      <label *ngIf="user.roleId"><span class="label label-info">{{ user.roleId.name }}</span></label>
+      <label *ngIf="!user.roleId"><span class="label label-warning">Non disponible!</span></label>
+    </clr-input-container>
+    <clr-input-container>
       <label>Actif / Non actif</label>
       <label *ngIf="user.active==true"><span class="label label-success">Actif</span></label>
       <label *ngIf="user.active==false"><span class="label label-warning">Non actif</span></label>

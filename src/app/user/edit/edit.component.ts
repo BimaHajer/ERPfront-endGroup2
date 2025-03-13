@@ -22,6 +22,7 @@ export class EditComponent {
   loading: boolean = false
   loadingImg: boolean = false
   alert: Alert = new Alert()
+  roles: any[] = [];
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private userService: UserService, private sharedService:SharedService) {
     this.registerForm = this.formBuilder.group({
@@ -30,6 +31,7 @@ export class EditComponent {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       picture: [, [Validators.required]],
+      roleId: [, Validators.required],
       address: [],
       zipCode: [, Validators.maxLength(5)],
       active: [],
@@ -40,18 +42,32 @@ export class EditComponent {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params:ParamMap )=> {
       this.userId = Number(params.get('id'));
-      this.getUser()
+      this.getUser();
+      this.getRoles();
     });
   }
 
   getUser() {
     this.userService.getUser(this.userId).subscribe(
-      (data:any) => {
-        this.user = data
-        this.registerForm.patchValue(this.user)
+      (data: any) => {
+        this.user = data;
+        this.registerForm.patchValue({
+          ...this.user,
+          roleId: this.user.roleId?.id
+        });
       },
       err => { console.error('Observer got an error: ' + err) },
     )
+  }
+
+  getRoles() {
+    this.userService.getRoles().subscribe(
+      (data: any) => {
+        this.roles = data;
+        console.log("Rôles récupérés:", this.roles);
+      },
+      (err) => console.error('Erreur lors de la récupération des rôles:', err)
+    );
   }
 
   closeImg() {

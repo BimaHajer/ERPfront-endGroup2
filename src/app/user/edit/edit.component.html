@@ -40,6 +40,13 @@
       <input type="text" clrInput formControlName="zipCode" />
       <clr-control-error *clrIfError="'maxlength'">Taper 5 caractères au maximum </clr-control-error>
     </clr-input-container>
+    <clr-select-container>
+      <label>Rôle</label>
+      <select clrSelect formControlName="roleId">
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+      </select>
+      <clr-control-error *clrIfError="'required'">Le rôle est obligatoire.</clr-control-error>
+    </clr-select-container>
     <br>
     <clr-input-container>
       <label>Image *</label>
