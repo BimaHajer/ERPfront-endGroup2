@@ -3,6 +3,7 @@ import { User } from '../user';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { SharedService } from '../../shared/shared.service';
+import { FilterDto } from '../../filter.dto';
 
 @Component({
   selector: 'app-detail',
@@ -10,7 +11,8 @@ import { SharedService } from '../../shared/shared.service';
   styleUrl: './detail.component.css'
 })
 export class DetailComponent {
-
+  filter: FilterDto = new FilterDto();
+  roles: any[] = [];
   user = new User()
   // userAdd = new User()
   // userEdit = new User()
@@ -34,6 +36,7 @@ export class DetailComponent {
   }
 
   getUser() {
+    this.filter.relations = ['roleId'];
     this.userService.getUser(this.userId).subscribe(
       (data:any) => {
         this.user = data

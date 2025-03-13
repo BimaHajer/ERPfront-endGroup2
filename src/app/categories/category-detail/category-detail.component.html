@@ -20,12 +20,11 @@
           *ngIf="Category.name" />
         <label *ngIf="!Category.name"><span class="label label-warning">Non disponible!</span></label>
       </clr-input-container>
-      <clr-input-container>
-        <label>Description </label>
-        <textarea class="input-full-text" clrInput readonly [(ngModel)]="Category.description" name="description"
-          *ngIf="Category.description"></textarea>
-        <span *ngIf="!Category.description" class="label label-warning">Non disponible!</span>
-      </clr-input-container>
+      <clr-textarea-container>
+        <label>Description</label>
+        <textarea clrTextarea [(ngModel)]="Category.description" name="description" required *ngIf="Category.description"></textarea>
+        <label *ngIf="!Category.description"><span class="label label-warning">Non disponible!</span></label>
+    </clr-textarea-container>
       <clr-input-container>
         <label>Actif / Non actif</label>
         <label *ngIf="Category.active==true"><span class="label label-success">Actif</span></label>

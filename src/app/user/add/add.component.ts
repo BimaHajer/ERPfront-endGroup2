@@ -17,6 +17,7 @@ export class AddComponent {
   loading: boolean = true
   loadingImg: boolean = false
   alert: Alert = new Alert()
+  roles: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class AddComponent {
         lastName: ['', [Validators.required]],
         picture: [, [Validators.required]],
         address: [],
+        roleId: [, Validators.required],
         zipCode: [, Validators.maxLength(5)],
         active: [true],
       },
@@ -40,7 +42,16 @@ export class AddComponent {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userService.getRoles().subscribe({
+      next: (data) => {
+          this.roles = data;
+      },
+      error: (err) => {
+          console.error("Erreur lors du chargement des rôles", err);
+      }
+  });
+  }
 
 
   submitAction(top: HTMLElement) {

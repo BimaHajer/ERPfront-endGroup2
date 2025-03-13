@@ -13,6 +13,7 @@ import { FilterDto } from '../../filter.dto';
 })
 export class UsersComponent {
   users: any[] = []
+  roles: any[] = []
   showAlert: boolean = false;
   count: number = 0;
   loading: boolean = true
@@ -36,10 +37,12 @@ export class UsersComponent {
     this.loading = true
     this.state = state
     this.filter = Object.assign(this.filter,handleStateFilter(this.state))
+    this.filter.relations = ['roleId'];
     this.getUsers()
   }
 
   getUsers() {
+    this.filter.relations = ['roleId'];
     this.userService.getUsers(this.filter).subscribe(
       data => {
         this.users = data[0]

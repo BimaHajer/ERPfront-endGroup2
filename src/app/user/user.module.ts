@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdsModule } from '@cds/angular';
-import { ClarityModule } from '@clr/angular';
+import { ClarityModule, ClrSelectModule } from '@clr/angular';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { DetailComponent } from './detail/detail.component';
@@ -28,7 +28,8 @@ import { SharedModule } from '../shared/shared.module';
     ClarityModule,
     CdsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    ClrSelectModule
   ]
 })
 export class UserModule { }

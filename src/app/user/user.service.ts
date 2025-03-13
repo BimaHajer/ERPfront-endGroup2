@@ -18,6 +18,10 @@ export class UserService {
     return this.http.get(environment.api + '/users?filter=' + JSON.stringify(filter)) as Observable<[User[], number]>;
   }
 
+  getRoles(): Observable<any[]> {
+    return this.http.get<any[]>(environment.api + '/roles');
+  }
+
   addUser(user: User): Observable<User> {
     return this.http.post<User>(environment.api + '/users', user);
   }

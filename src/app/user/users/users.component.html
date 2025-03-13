@@ -43,6 +43,11 @@
             Téléphone
         </ng-container>
     </clr-dg-column>
+    <clr-dg-column [clrDgSortBy]="'roleId'">
+        <ng-container *clrDgHideableColumn="{ hidden: false }">
+            Rôle
+        </ng-container>
+    </clr-dg-column>
       <clr-dg-column [clrDgSortBy]="'active'">
           <ng-container *clrDgHideableColumn="{hidden: false}">
               Actif / Non actif
@@ -68,6 +73,12 @@
           <clr-dg-cell routerLink="/users/detail/{{item.id}}">
             <span *ngIf="item.phone">{{item.phone}}</span>
             <cds-icon shape="ban" *ngIf="!item.phone"></cds-icon>
+        </clr-dg-cell>
+        <clr-dg-cell routerLink="/roles/detail/{{item.id}}">
+            <span *ngIf="item.roleId">
+              <label class="label label-info">{{ item.roleId.name }}</label>
+            </span>
+            <cds-icon shape="ban" *ngIf="!item.roleId"></cds-icon>
         </clr-dg-cell>
           <clr-dg-cell routerLink="/users/detail/{{item.id}}">
               <span *ngIf="item.active==true" class="label label-success">Actif</span>

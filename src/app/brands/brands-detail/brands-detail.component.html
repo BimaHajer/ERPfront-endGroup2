@@ -22,12 +22,11 @@
       <span *ngIf="!brand.name" class="label label-warning">Non disponible!</span>
     </clr-input-container>
 
-    <clr-input-container>
-      <label>Description </label>
-      <textarea class="input-full-text" clrInput readonly [(ngModel)]="brand.description" name="description"
-        *ngIf="brand.description"></textarea>
-      <span *ngIf="!brand.description" class="label label-warning">Non disponible!</span>
-    </clr-input-container>    
+    <clr-textarea-container>
+      <label>Description</label>
+      <textarea clrTextarea [(ngModel)]="brand.description" name="description" required *ngIf="brand.description"></textarea>
+      <label *ngIf="!brand.description"><span class="label label-warning">Non disponible!</span></label>
+  </clr-textarea-container>   
 
     <clr-input-container>
       <label>Actif / Non actif</label>
