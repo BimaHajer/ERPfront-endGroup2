@@ -36,7 +36,7 @@ export class LoginComponent {
           document.cookie = `token=${data.access_token}; Max-Age=${data.expiresIn}; path=/`;
           document.cookie = `firstName=${data.firstName}; Max-Age=${data.expiresIn}; path=/`;
           document.cookie = `lastName=${data.lastName}; Max-Age=${data.expiresIn}; path=/`;
-
+          document.cookie = `role=${data.role}; Max-Age=${data.expiresIn}; path=/`;
           this.router.navigate(['/dashboard']);
         },
         error: (err: any) => {
