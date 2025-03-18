@@ -1,5 +1,5 @@
 <span #top class="scroll-margin-top">
-  <span><a routerLink="/products">Produit</a></span> /
+  <span><a routerLink="/products">Produits</a></span> /
   <span>Modification</span>
 </span>
 <div #top class="main-container">
@@ -89,25 +89,26 @@
 
                       <clr-input-container>
                           <label>TVA en pourcentage (%) *</label>
-                          <input clrInput formControlName="tva" type="number" step="0.01" required />
+                          <input clrInput formControlName="tva" type="number" step="0.01" required (input)="calculPriceTtWithTax()"/>
                           <clr-control-error *clrIfError="'required'">La TVA est obligatoire.</clr-control-error>
                       </clr-input-container>
 
                       <clr-input-container>
                           <label>Prix d'achat HT *</label>
-                          <input clrInput type="number" formControlName="priceHT" step="0.01" required />
-                          <clr-control-error *clrIfError="'required'">Ce champ est obligatoire!</clr-control-error>
+                          <input clrInput type="number" formControlName="priceHT" step="0.01"
+                          (input)="calculPriceTtWithTax()" required />                          <clr-control-error *clrIfError="'required'">Ce champ est obligatoire!</clr-control-error>
                       </clr-input-container>
 
                       <clr-input-container>
                           <label>Prix TTC *</label>
-                          <input clrInput type="number" formControlName="priceTTC" step="0.01" required />
+                          <input clrInput type="number" formControlName="priceTTC" step="0.01"
+                               (input)="calculPriceHtWithTax()" required />
                           <clr-control-error *clrIfError="'required'">Ce champ est obligatoire!</clr-control-error>
                       </clr-input-container>
 
                       <clr-input-container>
                           <label>Quantité initiale</label>
-                          <input clrInput formControlName="initialQuantity" />
+                          <input clrInput formControlName="initialQuantity" (input)="updateRemainingQuantity()" />
                           <clr-control-error *clrIfError="'required'">Quantité initiale requise</clr-control-error>
                       </clr-input-container>
 

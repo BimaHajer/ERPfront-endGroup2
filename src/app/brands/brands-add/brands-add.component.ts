@@ -63,10 +63,10 @@ export class BrandAddComponent {
 
     this.validateBtnState = ClrLoadingState.LOADING;
     this.brandService.addBrand(formData).subscribe(
-      () => {
+      (data) => {
         this.validateBtnState = ClrLoadingState.SUCCESS;
         this.registerForm.reset({ active: true });
-        this.alert = { success: true, msgSuccess: "Marque ajoutée avec succès!", echec: false, open: true };
+        this.alert = { success: true, msgSuccess: "L'ajout de marque " + data.id + " a été effectué avec succès! ", echec: false, open: true };
       },
       () => {
         this.alert = { success: false, msgEchec: "L'ajout a échoué.", echec: true, open: true };

@@ -26,14 +26,13 @@
       <label>Description</label>
       <textarea clrTextarea [(ngModel)]="brand.description" name="description" required *ngIf="brand.description"></textarea>
       <label *ngIf="!brand.description"><span class="label label-warning">Non disponible!</span></label>
-  </clr-textarea-container>   
+  </clr-textarea-container>
 
     <clr-input-container>
       <label>Actif / Non actif</label>
-      <span *ngIf="brand.active" class="label label-success">Actif</span>
-      <span *ngIf="!brand.active" class="label label-warning">Non actif</span>
+      <label *ngIf="brand.active==true"><span class="label label-success">Actif</span></label>
+      <label *ngIf="brand.active==false"><span class="label label-warning">Non actif</span></label>
     </clr-input-container>
-
     <clr-input-container>
       <label>Créé(e) le</label>
       <input clrInput *ngIf="brand.createdAt" value="{{ brand.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
@@ -43,14 +42,13 @@
     <clr-input-container>
       <label>Mis(e) à jour le</label>
       <input clrInput *ngIf="brand.updatedAt" value="{{ brand.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
-      <span *ngIf="!brand.updatedAt" class="label label-warning">Non disponible!</span>
+      <label *ngIf="!brand.updatedAt"><span class="label label-warning">Non disponible!</span></label>
     </clr-input-container>
 
     <clr-input-container>
-      <label>Image </label>
+      <label>Logo </label>
       <span *ngIf="!brand.picture" class="label label-warning">Non disponible!</span>
     </clr-input-container>
-
     <div class="clr-row clr-align-items-center">
       <div class="clr-col-7 clr-col-md-4 clr-offset-sm-2">
         <div class="picture-brand" *ngIf="brand.picture">
@@ -62,7 +60,7 @@
         </div>
       </div>
     </div>
-
+<br/>
     <div class="btn-group btn-sm btn-outline-primary">
       <button class="btn" (mousedown)="redirectTo()">
         <cds-icon shape="undo"></cds-icon> Retour

@@ -30,15 +30,9 @@
       </ng-container>
     </clr-dg-column>
 
-    <clr-dg-column [clrDgSortBy]="'description'">
-      <ng-container *clrDgHideableColumn="{hidden: false}">
-        Description
-      </ng-container>
-    </clr-dg-column>
-
     <clr-dg-column [clrDgSortBy]="'image'">
       <ng-container *clrDgHideableColumn="{hidden: false}">
-        Image
+        Logo
       </ng-container>
     </clr-dg-column>
 
@@ -57,13 +51,7 @@
         <cds-icon shape="ban" *ngIf="!item.name"></cds-icon>
       </clr-dg-cell>
       <clr-dg-cell routerLink="/brands/detail/{{item.id}}">
-        <span *ngIf="item.description">{{item.description}}</span>
-        <cds-icon shape="ban" *ngIf="!item.description"></cds-icon>
-      </clr-dg-cell>
-      <clr-dg-cell routerLink="/brands/detail/{{item.id}}">
-        <!-- Affichage de l'image -->
         <img *ngIf="item.picture" [src]="item.picture" alt="Image de la marque" class="brand-image" />
-        <!-- Si l'image n'existe pas, affichage d'un message -->
         <span *ngIf="!item.picture" class="label label-warning">Non disponible</span>
       </clr-dg-cell>
       <clr-dg-cell routerLink="/brands/detail/{{item.id}}">

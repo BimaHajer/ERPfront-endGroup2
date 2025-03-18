@@ -82,7 +82,7 @@ export class ModelsAddComponent {
         (data) => {
           this.validateBtnState = ClrLoadingState.SUCCESS;
           this.modeleForm.reset({ active: true });
-          this.alert = { success: true, msgSuccess: "modéle ajoutée avec succès!", echec: false, open: true };
+          this.alert = { success: true, msgSuccess: "L'ajout de modèle " + data.id + " a été effectué avec succès! ", echec: false, open: true };
 
                 },
         (err) => {

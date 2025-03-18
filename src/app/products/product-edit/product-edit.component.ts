@@ -57,12 +57,6 @@
         }),
       });
 
-      this.form.get('tarif.initialQuantity')?.valueChanges.subscribe(value => {
-        if (value !== null && value !== undefined) {
-          this.form.get('tarif.remainingQuantity')?.setValue(value);
-        }
-      });
-
       this.form.get('detail.brandId')?.valueChanges.subscribe(value => {
         if (!value) {
           this.brandAlert = {
@@ -77,48 +71,46 @@
           this.form.get('detail.modelId')?.enable();
         }
       });
+    }
+    updateRemainingQuantity() {
+      const initialQuantity = this.form.get('tarif.initialQuantity')?.value;
+      this.form.get('tarif.remainingQuantity')?.setValue(initialQuantity);
+    }
+    calculPriceTtWithTax() {
+      const tva = this.form.get('tarif.tva')?.value;
+      const priceHT = this.form.get('tarif.priceHT')?.value;
 
-      this.form.get('tarif.priceHT')?.valueChanges.subscribe(priceHT => {
-        const tva = this.form.get('tarif.tva')?.value;
-        if (priceHT !== null && priceHT !== undefined && tva !== null && tva !== undefined) {
-          const priceTTC = priceHT * (1 + tva / 100);
-          this.form.get('tarif.priceTTC')?.setValue(priceTTC.toFixed(2), { emitEvent: false });
-        }
+      if (!tva) {
+        this.tvaAlert = {
+          success: false,
+          msgEchec: 'La TVA doit être remplie avant de continuer.',
+          echec: true,
+          open: true
+        };
+        return;
+      }
 
-        const tvaCheck = this.form.get('tarif.tva')?.value;
-        if (!tvaCheck) {
-          this.tvaAlert = {
-            success: false,
-            msgEchec: 'La TVA doit être remplie avant de continuer.',
-            echec: true,
-            open: true
-          };
-        } else {
-          this.tvaAlert = { success: true, msgSuccess: '', echec: false, open: false };
-        }
-      });
+      const priceTTC = (priceHT * (1 + tva / 100)).toFixed(2);
+      this.form.get('tarif')?.patchValue({ priceTTC });
+      this.tvaAlert.open = false;
+    }
+    calculPriceHtWithTax() {
+      const tva = this.form.get('tarif.tva')?.value;
+      if (!tva) {
+        this.tvaAlert = {
+          success: false,
+          msgEchec: 'La TVA doit être remplie avant de continuer.',
+          echec: true,
+          open: true
+        };
+        return;
+      }
 
-      this.form.get('tarif.tva')?.valueChanges.subscribe(tva => {
-        const priceHT = this.form.get('tarif.priceHT')?.value;
-        if (priceHT !== null && priceHT !== undefined && tva !== null && tva !== undefined) {
-          const priceTTC = priceHT * (1 + tva / 100);
-          this.form.get('tarif.priceTTC')?.setValue(priceTTC.toFixed(2), { emitEvent: false });
-        }
-
-        if (!tva) {
-          this.tvaAlert = {
-            success: false,
-            msgEchec: 'La TVA doit être remplie avant de continuer.',
-            echec: true,
-            open: true
-          };
-        } else {
-          this.tvaAlert = { success: true, msgSuccess: '', echec: false, open: false };
-        }
-      });
+      const priceHT = (this.form.value.tarif.priceTTC / (1 + this.form.value.tarif.tva / 100)).toFixed(2);
+      this.form.get('tarif')?.patchValue({ priceHT });
+      this.tvaAlert.open = false;
 
     }
-
     ngOnInit() {
       this.activatedRoute.paramMap.subscribe(params => {
         this.productId = Number(params.get('id'));

@@ -54,11 +54,6 @@ export class ProductAddComponent {
       }),
     });
 
-    this.form.get('tarif.initialQuantity')?.valueChanges.subscribe(value => {
-      if (value !== null && value !== undefined) {
-        this.form.get('tarif.remainingQuantity')?.setValue(value);
-      }
-    });
 
     this.form.get('detail.brandId')?.valueChanges.subscribe(value => {
       if (!value) {
@@ -75,9 +70,30 @@ export class ProductAddComponent {
       }
     });
   }
+  updateRemainingQuantity() {
+    const initialQuantity = this.form.get('tarif.initialQuantity')?.value;
+    this.form.get('tarif.remainingQuantity')?.setValue(initialQuantity);
+  }
+  BrandChange() {
+    const brandValue = this.form.get('detail.brandId')?.value;
+
+    if (!brandValue) {
+      this.brandAlert = {
+        success: false,
+        msgEchec: 'La marque doit être sélectionnée avant de continuer.',
+        echec: true,
+        open: true
+      };
+      this.form.get('detail.modelId')?.disable();
+    } else {
+      this.brandAlert.open = false;
+      this.form.get('detail.modelId')?.enable();
+    }
+  }
 
   calculPriceTtWithTax() {
     const tva = this.form.get('tarif.tva')?.value;
+    const priceHT = this.form.get('tarif.priceHT')?.value;
 
     if (!tva) {
       this.tvaAlert = {
@@ -89,14 +105,12 @@ export class ProductAddComponent {
       return;
     }
 
-    const priceTTC = (this.form.value.tarif.priceHT * (1 + this.form.value.tarif.tva / 100)).toFixed(2);
+    const priceTTC = (priceHT * (1 + tva / 100)).toFixed(2);
     this.form.get('tarif')?.patchValue({ priceTTC });
     this.tvaAlert.open = false;
   }
-
   calculPriceHtWithTax() {
     const tva = this.form.get('tarif.tva')?.value;
-
     if (!tva) {
       this.tvaAlert = {
         success: false,
@@ -110,28 +124,31 @@ export class ProductAddComponent {
     const priceHT = (this.form.value.tarif.priceTTC / (1 + this.form.value.tarif.tva / 100)).toFixed(2);
     this.form.get('tarif')?.patchValue({ priceHT });
     this.tvaAlert.open = false;
+
   }
 
   onSearchChange(args: string, type: string) {
+
     this.loading = true;
     let filter: any = {};
     if (args) {
       filter.take = 10;
       filter.where = { name: { type: "ilike", value: args }, active: true };
     } else {
+      this.BrandChange();
       filter.take = 15;
       filter.where = { active: true };
+      if (type === 'brands') {
+        this.form.patchValue({
+          detail: {
+            modelId: ''
+          },
+        })}
     }
     if (this.form.get('detail.brandId')?.value) {
       this.brandId = this.form.get('detail.brandId')?.value;
     }
     if (type === 'brands') {
-      this.form.patchValue({
-        detail: {
-          modelId: ''
-        },
-
-      })
       this.getBrands(filter);
     } else if (type === 'categories') {
       this.getCategories(filter);
