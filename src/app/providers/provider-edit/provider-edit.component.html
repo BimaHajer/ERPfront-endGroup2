@@ -1,10 +1,10 @@
 <span #top class="scroll-margin-top">
-    <span><a routerLink="/providers">Fournisseur</a></span> /
+    <span><a routerLink="/providers">Fournisseurs</a></span> /
     <span>Modification</span>
   </span>
   <section>
     <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
-  
+
     <h3>Modifier Fournisseur</h3>
     <div class="spinner-class" *ngIf="!providerId">
       <clr-spinner [clrMedium]="true"></clr-spinner>
@@ -60,4 +60,4 @@
       </div>
     </form>
   </section>
-  
+

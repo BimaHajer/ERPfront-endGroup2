@@ -92,7 +92,7 @@ onSearchChange(args: string) {
           (data) => {
             this.modele = data;
             this.validateBtnState = ClrLoadingState.SUCCESS;
-            this.alert = { success: true, msgSuccess: "La modification du modèle été effectuée avec succès!", echec: false, open: true };
+            this.alert = { success: true, msgSuccess: "La modification de modèle " + data.id + " a été effectuée avec succès !", echec: false, open: true }
           },
           (err) => {
             console.error('Erreur lors de la modification de la modèle:', err);

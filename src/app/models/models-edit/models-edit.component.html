@@ -13,19 +13,6 @@
 
   <form clrForm [formGroup]="modeleForm" (ngSubmit)="submitAction(top)" *ngIf="modeleId">
 
-
-    <clr-input-container>
-      <label>Nom *</label>
-      <input clrInput type="text" formControlName="name" />
-      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire</clr-control-error>
-    </clr-input-container>
-
-
-    <clr-textarea-container>
-      <label>Description</label>
-      <textarea clrTextarea formControlName="description"></textarea>
-    </clr-textarea-container>
-
     <clr-combobox-container>
       <label>Marque *</label>
       <clr-combobox name="brandId" [clrLoading]="loading" (clrInputChange)="onSearchChange($event)"
@@ -38,7 +25,17 @@
       <clr-control-error>Ce champ est obligatoire</clr-control-error>
   </clr-combobox-container>
 
+    <clr-input-container>
+      <label>Nom *</label>
+      <input clrInput type="text" formControlName="name" />
+      <clr-control-error *clrIfError="'required'">Ce champ est obligatoire</clr-control-error>
+    </clr-input-container>
 
+
+    <clr-textarea-container>
+      <label>Description</label>
+      <textarea clrTextarea formControlName="description"></textarea>
+    </clr-textarea-container>
 
     <clr-checkbox-container>
       <label>Actif / Non actif</label>
