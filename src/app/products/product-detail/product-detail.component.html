@@ -144,7 +144,19 @@
   <clr-tab>
     <button clrTabLink>Galerie</button>
     <clr-tab-content *clrIfActive>
-      <p cds-text="body" cds-layout="m-t:md">Content for Management tab.</p>
+      <form clrForm>
+
+        <div  class="d-flex flex-wrap pb-20">
+          <div *ngFor="let img of Product?.images ; let i = index" class="card-img card mg-r-20">
+            <div class="d-flex" style="align-items: center; justify-content:space-between" >
+                    <button type="button" class="btn btn-icon btn-sm delete-icon" (click)="deleteImage(img)">
+                        <cds-icon shape="trash" status="danger"></cds-icon>
+                    </button>
+            </div>
+            <img [src]="img.path" *ngIf="img.path" width="50px" height="50px"/>
+            </div>
+          </div>
+      </form>
     </clr-tab-content>
   </clr-tab>
 </clr-tabs>

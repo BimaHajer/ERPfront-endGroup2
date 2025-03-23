@@ -1,0 +1,35 @@
+clr-control-container {
+  display: flex;
+  align-items: baseline;
+}
+.mg-r-20 {
+  margin-right : 20px !important;
+}
+
+.card-img {
+width: 150px !important;
+}
+img {
+padding: 10px;
+}
+.delete-icon {
+border: none;
+}
+
+.d-flex {
+display: flex;
+}
+
+.flex-wrap {
+flex-wrap: wrap;
+}
+
+
+.pb-20 {
+padding-bottom: 20px;
+}
+.card-img>img {
+  height: 130px;
+  width: auto;
+  margin: auto;
+}

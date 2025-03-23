@@ -64,7 +64,6 @@ export class EditComponent {
     this.userService.getRoles().subscribe(
       (data: any) => {
         this.roles = data;
-        console.log("Rôles récupérés:", this.roles);
       },
       (err) => console.error('Erreur lors de la récupération des rôles:', err)
     );

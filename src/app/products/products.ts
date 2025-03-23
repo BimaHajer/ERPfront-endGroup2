@@ -11,6 +11,7 @@ export class Product {
       public remainingQuantity?: number,
       public categoryId?: { id: number, name: string },
       public modelId?: { id: number, name: string, brandId: { id: number, name: string } },
+      public images?:any[],
       public active?: boolean,
       public createdAt?: string,
       public updatedAt?: string,
