@@ -1,0 +1,36 @@
+<clr-modal [(clrModalOpen)]="openModalMultipleImage" (clrModalOpenChange)="close()" [clrModalClosable]="true" [clrModalSize]="'xl'">
+  <h3 class="modal-title">Ajouter Images</h3>
+
+  <div class="modal-body">
+  <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
+
+         <form [formGroup]="imageForm">
+          <button type="button" class="btn btn-sm btn-secondary" (click)="ajoutNewFile()"><cds-icon shape="plus"></cds-icon> Ajout nouvelle image</button>
+
+          <div formArrayName="images" class="d-flex flex-wrap pb-20">
+            <div *ngFor="let img of images.controls; let i = index" [formGroupName]="i" class="card-img card mg-r-20">
+              <div class="d-flex" style="align-items: center; justify-content:space-between" >
+                      <button type="button" class="btn btn-icon btn-sm delete-icon" (click)="deletePicAction(i)">
+                          <cds-icon shape="trash" status="danger"></cds-icon>
+                      </button>
+              </div>
+              <img [src]="img.value" *ngIf="img.value"/>
+              <div class="card-img mg-r-20" *ngIf="!img.value ">
+                  <a (click)="fileInput.click()">
+                    <cds-icon class="plus-icon" shape="plus-circle" size="48"></cds-icon>
+                  </a>
+                  <input hidden type="file" #fileInput (change)="picked($event, i)" accept="image/*" />
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+  </div>
+  <div class="modal-footer mg-t-50">
+      <button type="button" class="btn btn-outline" (mousedown)="close()">Annuler</button>
+      <button type="button" class="btn btn-primary" (mousedown)="submit()" [clrLoading]="validateBtnState"  [disabled]="imageForm.invalid || alert.open || isButtonDisabled()">
+          <cds-icon shape="plus"></cds-icon>Enregistrer
+      </button>
+  </div>
+</clr-modal>

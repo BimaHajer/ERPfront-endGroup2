@@ -59,12 +59,10 @@ export class ModelsAddComponent {
 
 
     getBrands(filter: any) {
-      console.log("Filtre utilisé pour la recherche des marques :", filter);
       filter.select = ['id', 'name'];
 
       this.brandsService.getBrands(filter).subscribe(
           data => {
-              console.log("Données reçues :", data);
               this.brands = data[0];
           },
           err => {

@@ -1,0 +1,50 @@
+
+.clr-control-container {
+  display: flex;
+  align-items: baseline;
+}
+.mg-r-20 {
+  margin-right : 20px !important;
+}
+
+.plus-icon {
+width: 100% !important;
+height: 200px !important;
+padding: 30%;
+padding-top: 20%;
+color: #1c8adb;
+display: flex;
+justify-content: center;
+align-items: center;
+box-sizing: border-box;
+}
+.card-img {
+width: 220px !important;
+}
+img {
+padding: 20px;
+}
+.delete-icon{
+border: none;
+}
+
+.d-flex {
+display: flex;
+}
+
+.flex-wrap {
+flex-wrap: wrap;
+}
+
+.mg-r-50 {
+margin-top : 50px !important;
+}
+
+.ml-20 {
+margin-left: 20px !important;
+margin-top: 10px !important;
+font-size: smaller;
+}
+.pb-20 {
+padding-bottom: 20px;
+}

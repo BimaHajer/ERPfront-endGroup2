@@ -5,13 +5,15 @@ import { ClarityModule } from '@clr/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdsModule } from '@cds/angular';
 import { AlertComponent } from './alert/alert.component';
+import { UploadMultipleImageComponent } from './upload-multiple-image/upload-multiple-image.component';
 
 
 
 @NgModule({
   declarations: [
     UploadImageComponent,
-    AlertComponent
+    AlertComponent,
+    UploadMultipleImageComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { AlertComponent } from './alert/alert.component';
   ],
   exports: [
     AlertComponent,
-    UploadImageComponent
+    UploadImageComponent,
+    UploadMultipleImageComponent
   ]
 })
 export class SharedModule { }

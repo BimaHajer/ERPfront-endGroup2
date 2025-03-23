@@ -34,10 +34,8 @@ export class ProductDetailComponent {
   }
 
   getProduct() {
-    this.filter.relations = ['categoryId', 'modelId', 'modelId.brandId'];
     this.ProductsService.getProduct(this.productId).subscribe(
       (data: any) => {
-        console.log('Produit récupéré : ', data);
         this.Product = data;
       },
       (err) =>
@@ -60,5 +58,22 @@ export class ProductDetailComponent {
 
   redirectTo() {
     window.history.back();
+  }
+
+  deleteImage(image:any){
+    let folder = `products/product${this.Product.id}`
+    let data = {
+     imageId: image.id,
+     publicId: `${image.path.substring(image.path.indexOf(folder)).split('.')[0]}`,
+    }
+    this.sharedService.removeImage(data).subscribe(
+        (data:any) => {
+          this.getProduct()
+        },
+        (err:any) => {
+          console.error('Observer got an error: ' + err)
+        }
+      );
+
   }
 }

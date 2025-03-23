@@ -123,8 +123,6 @@
     getProduct() {
       this.productsService.getProduct(this.productId).subscribe(
         (data: any) => {
-          console.log('Données récupérées:', data);
-
           this.form.patchValue({
             general: {
               name: data.name,
@@ -164,12 +162,13 @@
         this.brandId = this.form.get('detail.brandId')?.value;
       }
       if (type === 'brands') {
-        this.form.patchValue({
+        !args ? this.form.patchValue({
           detail: {
             modelId: ''
           },
 
-        })}
+        }): null
+      }
       if (type === 'brands') {
         this.getBrands(filter);
       } else if (type === 'categories') {
@@ -183,7 +182,6 @@
       filter.select = ['id', 'name'];
       this.brandsService.getBrands(filter).subscribe(
         data => {
-          console.log('Données récupérées:', data);
           this.brands = data[0];
         },
         err => {

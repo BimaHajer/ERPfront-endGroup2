@@ -36,7 +36,6 @@ export class ModelsEditComponent {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params:ParamMap )=> {
       this.modeleId = Number(params.get('id'));
-      console.log( this.modeleId)
       this.getModele()
     });
   }
@@ -45,7 +44,6 @@ export class ModelsEditComponent {
     this.modeleService.getModel(this.modeleId).subscribe(
       (data:any) => {
         this.modele = data
-        console.log(" this.modele ", this.modele )
         this.modeleForm.patchValue(this.modele)
       },
       err => { console.error('Observer got an error: ' + err) },

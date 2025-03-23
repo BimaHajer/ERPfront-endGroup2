@@ -47,7 +47,6 @@ export class BrandEditComponent {
   getBrand() {
     this.brandService.getBrand(this.brandId).subscribe(
       (data) => {
-        console.log(data);
         this.brand = data;
         this.registerForm.patchValue({
           name: data.name,

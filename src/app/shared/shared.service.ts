@@ -27,6 +27,14 @@ export class SharedService {
   uploadImgCloudinary(imageData: any) {
     return this.http.post(environment.api + '/uploadImgCloudinary/' ,imageData);
   }
+  uploadMultipleImage(data: any) {
+    return this.http.post(environment.api + '/images/imageMultiple/add/upload/' , data);
+  }
+
+  removeImage(data: any): any{
+    return this.http.post(environment.api + '/images/remove/' , data);
+
+  }
 }
 export function tokenGetter() {
   var name = "token=";

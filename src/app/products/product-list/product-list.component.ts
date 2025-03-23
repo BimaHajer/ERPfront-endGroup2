@@ -37,6 +37,9 @@ export class ProductListComponent {
   pageSize = pageSize;
   pageSizeOptions = pageSizeOptions;
   currentProduct: number = -1;
+  openModalMultipleImage: boolean = false
+  folder: string = ''
+  productId:any;
   constructor(
     private productsService: ProductsService,
     private router: Router,
@@ -103,4 +106,10 @@ export class ProductListComponent {
   editAction() {
     this.router.navigate(['/products/edit/', this.allSelected[0].id]);
   }
+
+  showImagesProduct(){
+    this.openModalMultipleImage = true
+    this.folder = `products/product${this.allSelected[0].id}`
+    this.productId = this.allSelected[0].id
+   }
 }

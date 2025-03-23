@@ -17,6 +17,11 @@
                   <cds-icon shape="trash"></cds-icon> Supprimer
               </button>
           </div>
+          <div class="btn-group">
+            <button class="btn btn-sm" (click)="showImagesProduct()" [disabled]="allSelected.length !== 1">
+              <cds-icon shape="image"></cds-icon> Upload Images
+          </button>
+          </div>
       </clr-dg-action-bar>
       <clr-dg-column [clrDgSortBy]="'id'" [clrDgSortOrder]="descSort">
           <ng-container *clrDgHideableColumn="{hidden: false}">
@@ -87,6 +92,7 @@
   </clr-datagrid>
 </section>
 <app-product-delete *ngIf="showAlert" (closed)="close()" (saved)="save()" [allSelected]="idsSelected"></app-product-delete>
+<app-upload-multiple-image *ngIf="openModalMultipleImage" [openModalMultipleImage]="openModalMultipleImage" [productId]="this.productId" (closed)="openModalMultipleImage = false" (saved)="openModalMultipleImage = false; refresh(state)" [folder]="folder" ></app-upload-multiple-image>
 
 
 
