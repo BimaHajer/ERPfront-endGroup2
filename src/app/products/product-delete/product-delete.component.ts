@@ -18,6 +18,8 @@ export class ProductDeleteComponent {
     toDelete: number[] = []
     msgAlertDisable: string = ''
     msgAlertDelete: string = ''
+    idsDisable: string = '';
+    idsDelete: string = '';
 
     constructor(private ProductsService:ProductsService) { }
 
@@ -26,24 +28,33 @@ export class ProductDeleteComponent {
         this.ProductsService.getProducts({ loadRelationIds: true, where: { id: {type: "in", value: this.allSelected} } }).subscribe(
           data => {
             data[0].forEach((element:any) => {
-             this.toDelete.push(element.id)
-
-              if (this.toDelete.length + this.toDisable.length == this.allSelected?.length) {
-                if (this.toDisable.length != 0) {
-                  if (this.toDisable.length == 1) {
-                    this.msgAlertDisable = "Produit: \" " + this.toDisable + " \" a des relations avec d'autres tables. Vous ne pouvez que le désactiver !"
-                  } else
-                    this.msgAlertDisable = "Les Produits: \" " + this.toDisable + " \" ont des relations avec d'autres tables. Vous ne pouvez que les désactiver !"
+              if (element.images?.length) {
+                if (element.id) {
+                  this.toDisable.push(element.id);
+                  this.idsDisable += element.id + ', ';
                 }
-                if (this.toDelete.length != 0) {
-                  if (this.toDelete.length == 1) {
-                    this.msgAlertDelete = "Voulez-vous vraiment supprimer Produit: \" " + this.toDelete + " \" !"
-                  } else
-                    this.msgAlertDelete = "Voulez-vous vraiment supprimer Les produits: \" " + this.toDelete + " \" !"
+              } else {
+                if (element.id) {
+                  this.toDelete.push(element.id);
+                  this.idsDelete += element.id + ', ';
                 }
               }
-            })
-          })
+  
+              if (this.toDelete.length + this.toDisable.length == this.allSelected?.length) {
+                if (this.toDisable.length != 0) {
+                  this.msgAlertDisable = this.toDisable.length === 1
+                    ? `Produit: "${this.toDisable}" a des relations avec d'autres tables. Vous ne pouvez que la désactiver !`
+                    : `Les produits: "${this.toDisable}" ont des relations avec d'autres tables. Vous ne pouvez que les désactiver !`;
+                }
+                if (this.toDelete.length) {
+                  this.msgAlertDelete = this.toDelete.length === 1
+                    ? `Voulez-vous vraiment supprimer le produit: "${this.toDelete}" ?`
+                    : `Voulez-vous vraiment supprimer les produits: "${this.toDelete}" ?`;
+                }
+              }
+            });
+          }
+        );
       }
     }
 
