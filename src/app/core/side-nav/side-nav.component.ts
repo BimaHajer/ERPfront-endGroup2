@@ -80,7 +80,15 @@ export class SideNavComponent {
       "order": 9,
       "subsNavbar": [],
       "roles": ["SuperAdmin", "Admin"]
-    }
+    },
+    {
+      "name": "Paiments",
+      "route": "payments",
+      "icon": "bank",
+      "order": 10,
+      "subsNavbar": [],
+      "roles": ["SuperAdmin", "Admin"]
+    }
   ];
   filteredNavBars: any[] = [];
 

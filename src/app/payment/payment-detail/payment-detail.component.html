@@ -1,0 +1,63 @@
+<span>
+    <span><a routerLink="/payments">Mode Paiement</a></span> /
+    <span>Details</span>
+  </span>
+  <br>
+  <section>
+    <h3>Détails de mode paiement</h3>
+    <div class="spinner-class" *ngIf="!paymentId">
+      <clr-spinner [clrMedium]="true"></clr-spinner>
+    </div>
+    <form clrForm *ngIf="paymentId">
+      <clr-input-container>
+        <label>Id </label>
+        <input clrInput type="text" value="{{payment.id}}" readonly *ngIf="payment.id" />
+        <label *ngIf="!payment.id"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Mode Paiement </label>
+        <input class="input-full-text" clrInput type="text" readonly [(ngModel)]="payment.modePayment" name="modePayment"
+          *ngIf="payment.modePayment" />
+        <label *ngIf="!payment.modePayment"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-textarea-container>
+        <label>Description</label>
+        <textarea clrTextarea [(ngModel)]="payment.description" name="description" required *ngIf="payment.description"></textarea>
+        <label *ngIf="!payment.description"><span class="label label-warning">Non disponible!</span></label>
+    </clr-textarea-container>
+      <clr-input-container>
+        <label>Actif / Non actif</label>
+        <label *ngIf="payment.active==true"><span class="label label-success">Actif</span></label>
+        <label *ngIf="payment.active==false"><span class="label label-warning">Non actif</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Créé(e) le</label>
+        <input clrInput *ngIf="payment.createdAt" value="{{ payment.createdAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!payment.createdAt "><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Mis(e) à jour le</label>
+        <input clrInput *ngIf="payment.updatedAt" value="{{ payment.updatedAt | date: 'dd/MM/yyyy à HH:mm' }}" readonly />
+        <label *ngIf="!payment.updatedAt"><span class="label label-warning">Non disponible!</span></label>
+      </clr-input-container>
+      <br>
+
+      <div class="btn-group btn-sm btn-outline-primary ">
+        <button class="btn" (mousedown)="redirectTo()">
+          <cds-icon shape="undo"></cds-icon> Retour
+        </button>
+        <button class="btn" routerLink="/payments/edit/{{payment.id}}" *ngIf="payment.id!=currentPayment">
+          <cds-icon shape="pencil"></cds-icon> Modifier Mode Paiement
+        </button>
+        <button class="btn" (click)="deleteAction()" *ngIf="payment.id!=currentPayment">
+          <cds-icon shape="trash"></cds-icon> Supprimer
+        </button>
+      </div>
+    </form>
+
+  </section>
+  <app-payment-delete *ngIf="showAlert && payment.id" (closed)="close()" (saved)="save()" [allSelected]="[payment.id]"></app-payment-delete>
+
+
+
+

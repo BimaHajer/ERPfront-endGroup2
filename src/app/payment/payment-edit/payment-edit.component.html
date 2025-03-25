@@ -1,0 +1,50 @@
+<span #top class="scroll-margin-top">
+    <span><a routerLink="/payments">Modes Paiement</a></span> /
+    <span>Modification</span>
+  </span>
+  <section>
+    <app-alert [success]="alert.success" [msgSuccess]="alert.msgSuccess" [echec]="alert.echec" [msgEchec]="alert.msgEchec" (closed)="alert.open = false" *ngIf="alert.open"></app-alert>
+  
+    <h3>Modifier Mode Paiement</h3>
+    <div class="spinner-class" *ngIf="!paymentId">
+      <clr-spinner [clrMedium]="true"></clr-spinner>
+    </div>
+    <form clrForm [formGroup]="paymentForm" (ngSubmit)="submitAction(top)" *ngIf="paymentId">
+      <clr-select-container>
+        <label>Mode paiement *</label>
+        <select clrSelect formControlName="modePayment">
+            <option value="" disabled selected>Choisissez un mode paiement</option>
+            <option value="💳 Carte de crédit">💳 Carte de crédit</option>
+            <option value="💵 Espèces">💵 Espèces</option>
+            <option value="🏦 Carte de débit">🏦 Carte de débit</option>
+            <option value="🌐 En ligne">🌐 En ligne</option>
+        </select>
+        <clr-control-error *clrIfError="'required'">Ce champ est obligatoire</clr-control-error>
+    </clr-select-container>
+      <clr-textarea-container>
+        <label>Description</label>
+        <textarea clrTextarea formControlName="description"></textarea>
+      </clr-textarea-container>
+      <br>
+      <clr-checkbox-container>
+        <label>Actif / Non actif</label>
+        <clr-checkbox-wrapper>
+            <input type="checkbox" clrCheckbox formControlName="active" />
+        </clr-checkbox-wrapper>
+      </clr-checkbox-container><br><br>
+      <label class="alert-sm">* Champ obligatoire</label>
+      <br><br>
+      <div class="btn-group btn-sm btn-outline-primary">
+        <button type="reset" class="btn" (mousedown)="redirectTo()">
+          <cds-icon shape="undo"></cds-icon> Retour
+        </button>
+        <button type="submit" class="btn" [disabled]="paymentForm.invalid"
+          [clrLoading]="validateBtnState">
+          <cds-icon shape="plus"></cds-icon> Enregistrer
+        </button>
+      </div>
+    </form>
+  </section>
+  
+
+
